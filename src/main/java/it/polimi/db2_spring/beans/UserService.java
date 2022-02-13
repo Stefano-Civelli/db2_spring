@@ -1,7 +1,7 @@
 package it.polimi.db2_spring.beans;
 
 import it.polimi.db2_spring.beans.interfaces.IUserService;
-import it.polimi.db2_spring.entities.User;
+import it.polimi.db2_spring.entities.Users;
 import it.polimi.db2_spring.repo.UserRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,19 +23,19 @@ public class UserService implements IUserService {
    private final UserRepo usrRepo;
 
    @Override
-   public User create(User user) {
+   public Users create(Users user) {
       log.info("saving new user " + user.getUsername() + " in the DB");
       return usrRepo.save(user);
    }
 
    @Override
-   public User get(String username) {
+   public Users get(String username) {
       log.info("getting from Db user: " + username);
       return usrRepo.getById(username);
    }
 
    @Override
-   public User update(User user) {
+   public Users update(Users user) {
       log.info("updating user " + user.getUsername() + " in the DB");
       return usrRepo.save(user);
    }
@@ -48,7 +48,7 @@ public class UserService implements IUserService {
    }
 
    @Override
-   public List<User> getUserList(int limit) {
+   public List<Users> getUserList(int limit) {
       log.info("fetching user list");
       if(limit == 0)
          return usrRepo.findAll();
@@ -59,7 +59,7 @@ public class UserService implements IUserService {
    @Override
    public Boolean checkCredentials(String username, String pwd) {
 
-      Optional<User> user = usrRepo.findById(username);
+      Optional<Users> user = usrRepo.findById(username);
       if(user.isEmpty())
          return Boolean.FALSE;
 

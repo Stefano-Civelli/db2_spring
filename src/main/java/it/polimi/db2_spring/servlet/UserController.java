@@ -2,7 +2,7 @@ package it.polimi.db2_spring.servlet;
 
 
 import it.polimi.db2_spring.beans.UserService;
-import it.polimi.db2_spring.entities.User;
+import it.polimi.db2_spring.entities.Users;
 import it.polimi.db2_spring.utility.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +23,7 @@ public class UserController {
    private final UserService userService;
 
    @PostMapping("/SignUp")
-   public ResponseEntity<Response> signUpUser(@RequestBody @Valid User user) {
+   public ResponseEntity<Response> signUpUser(@RequestBody @Valid Users user) {
 
       return ResponseEntity.ok(
               Response.builder()

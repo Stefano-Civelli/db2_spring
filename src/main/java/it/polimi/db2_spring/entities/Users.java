@@ -16,8 +16,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 //@NamedQuery(name = "User.checkCredentials", query = "SELECT u FROM User u  WHERE u.username = ?1 and u.password = ?2")
-//@Table(name = "user", schema = "db2")
-public class User {
+public class Users {
    @Id
    private String username;
    @NotEmpty
@@ -27,7 +26,7 @@ public class User {
    @NotEmpty(message = "a mail is needed")
    private String mail;
    private Boolean insolvent;
-   private Boolean admin;
+   private Boolean isAdmin;
 
 
    public Boolean authenticate(String pwd) {

@@ -19,6 +19,5 @@ public class Response {
    private HttpStatus status;
    private String reason;
    private String message;
-   private String developerMessage;
    private Map<?,?> data;
 }

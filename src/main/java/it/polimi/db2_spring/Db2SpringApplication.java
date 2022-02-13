@@ -1,13 +1,7 @@
 package it.polimi.db2_spring;
 
-import it.polimi.db2_spring.entities.User;
-import it.polimi.db2_spring.repo.UserRepo;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-
-import static java.lang.Boolean.FALSE;
 
 @SpringBootApplication
 public class Db2SpringApplication {
