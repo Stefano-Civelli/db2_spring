@@ -2,7 +2,6 @@ package it.polimi.db2_spring.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,5 +28,9 @@ public class ServicePKG {
    //@JsonManagedReference
    @JsonIgnore
    private List<Orders> ordersOfServ;
+
+   @ManyToMany
+   @JoinTable(name = "service_optproduct")
+   List<OptionalProduct> products;
 
 }

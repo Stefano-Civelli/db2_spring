@@ -1,5 +1,6 @@
 package it.polimi.db2_spring.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import it.polimi.db2_spring.utility.ServiceType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,6 +26,7 @@ public class Service {
    private int feeExtraGigabytes;
    private ServiceType serviceType;
 
+   @JsonIgnore
    @ManyToMany(mappedBy = "services")
    private List<ServicePKG> servicePKGS;
 }

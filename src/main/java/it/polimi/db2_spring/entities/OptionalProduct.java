@@ -2,9 +2,12 @@ package it.polimi.db2_spring.entities;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -17,4 +20,10 @@ public class OptionalProduct {
    private String briefProductDescription;
    // magari aggiungere un product type
    private double monthlyFee;
+
+   @JsonIgnore
+   @ManyToMany(mappedBy = "products")
+   List<ServicePKG> servicePKGList;
+
+
 }
