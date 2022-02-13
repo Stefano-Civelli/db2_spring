@@ -28,7 +28,7 @@ public class Users {
    @Column(unique = true)
    @NotEmpty(message = "a mail is needed")
    private String mail;
-   private Boolean insolvent;
+   private Boolean isInsolvent;
    private Boolean isAdmin;
 
    //add "imported" keys
