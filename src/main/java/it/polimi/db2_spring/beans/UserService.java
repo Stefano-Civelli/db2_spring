@@ -57,13 +57,13 @@ public class UserService implements IUserService {
 
 
    @Override
-   public Boolean checkCredentials(String username, String pwd) {
+   public Boolean checkCredentials(Users user) {
 
-      Optional<Users> user = usrRepo.findById(username);
-      if(user.isEmpty())
+      Optional<Users> dbUser = usrRepo.findById(user.getUsername());
+      if(dbUser.isEmpty())
          return Boolean.FALSE;
 
-      return user.get().authenticate(pwd);
+      return dbUser.get().authenticate(user.getPassword());
 
 
 //      try {

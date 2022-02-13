@@ -13,6 +13,8 @@ import lombok.NoArgsConstructor;
 public class OptionalProduct {
    @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
-   private long Id;
+   private Long productCode;
+   private String briefProductDescription;
+   // magari aggiungere un product type
    private double monthlyFee;
 }

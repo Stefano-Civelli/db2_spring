@@ -1,5 +1,8 @@
 package it.polimi.db2_spring.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,11 +25,13 @@ public class Orders {
     private boolean stateOfSubscription;
 
     @ManyToOne
-    @JoinColumn(name = "servicePKG")
-    private ServicePKG servicePKG;
+    @JoinColumn(name = "order_owner")
+    @JsonBackReference(value = "boia")
+    private Users user;
 
     @ManyToOne
-    @JoinColumn(name = "user")
-    private Users user_;
+    @JoinColumn(name = "servicePKG")
+    //@JsonBackReference
+    private ServicePKG servicePKG;
 
 }

@@ -1,7 +1,7 @@
 package it.polimi.db2_spring.servlet;
 
-
-import it.polimi.db2_spring.beans.UserService;
+import it.polimi.db2_spring.beans.OrdersService;
+import it.polimi.db2_spring.entities.Orders;
 import it.polimi.db2_spring.entities.Users;
 import it.polimi.db2_spring.utility.Response;
 import lombok.RequiredArgsConstructor;
@@ -16,19 +16,19 @@ import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/orders")
 @RequiredArgsConstructor
-public class UserController {
+public class OrdersController {
 
-   private final UserService userService;
+   private final OrdersService ordersService;
 
-   @PostMapping("/SignUp")
-   public ResponseEntity<Response> signUpUser(@RequestBody @Valid Users user) {
+   @PostMapping("/place_order")
+   public ResponseEntity<Response> placeOrder(@RequestBody @Valid Orders order) {
 
       return ResponseEntity.ok(
               Response.builder()
                       .timeStamp(now())
-                      .data(Map.of("user", userService.create(user)))
+                      .data(Map.of("user", ordersService.create(order)))
                       .message("user created")
                       .status(CREATED)
                       .statusCode(CREATED.value())
@@ -37,32 +37,23 @@ public class UserController {
    }
 
 
-   @PostMapping("/LogIn")
-   public ResponseEntity<Response> logInUser(@RequestBody @Valid Users user) {
-
-      return ResponseEntity.ok(
-              Response.builder()
-                      .timeStamp(now())
-                      .data(Map.of("user", userService.checkCredentials(user)))
-                      .message("user created")
-                      .status(OK)
-                      .statusCode(OK.value())
-                      .build()
-      );
-   }
-
-   //for testing
    @GetMapping("/list")
-   public ResponseEntity<Response> getPackages() {
+   public ResponseEntity<Response> getPackages(@RequestBody @Valid Users user) {
       return ResponseEntity.ok(
               Response.builder()
                       .timeStamp(now())
-                      .data(Map.of("users:", userService.getUserList(0)))
-                      .message("users retrieved")
+                      .data(Map.of("packages", ordersService.getOrdersList(user)))
+                      .message("packages retrieved")
                       .status(OK)
                       .statusCode(OK.value())
                       .build()
       );
    }
+
+
+
+
+
+
 
 }

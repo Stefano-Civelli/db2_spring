@@ -13,6 +13,6 @@ public interface IUserService {
    Users update(Users user);
    Boolean delete(String username);
    List<Users> getUserList(int limit);
-   Boolean checkCredentials(String usrn, String pwd) throws CredentialsException, NonUniqueResultException;
+   Boolean checkCredentials(Users user);
 
 }

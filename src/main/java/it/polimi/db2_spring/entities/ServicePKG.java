@@ -1,6 +1,8 @@
 package it.polimi.db2_spring.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,10 +22,12 @@ public class ServicePKG {
    private String name;
 
    @ManyToMany
-   @JoinTable(name = "service_servicePkg") // da capire
+   @JoinTable(name = "service_servicePkg")
    private List<Service> services;
 
    @OneToMany(mappedBy = "servicePKG")
+   //@JsonManagedReference
+   @JsonIgnore
    private List<Orders> ordersOfServ;
 
 }
