@@ -38,12 +38,12 @@ public class OrdersController {
 
 
    @GetMapping("/list")
-   public ResponseEntity<Response> getPackages(@RequestBody @Valid Users user) {
+   public ResponseEntity<Response> getOrderList(@RequestBody Users user) {
       return ResponseEntity.ok(
               Response.builder()
                       .timeStamp(now())
-                      .data(Map.of("packages", ordersService.getOrdersList(user)))
-                      .message("packages retrieved")
+                      .data(Map.of("orders", ordersService.getOrdersList(user)))
+                      .message("orders retrieved")
                       .status(OK)
                       .statusCode(OK.value())
                       .build()
@@ -51,7 +51,18 @@ public class OrdersController {
    }
 
 
-
+   @GetMapping("/list_rejected") //basta l'username dell'utente
+   public ResponseEntity<Response> getRejectedOrderList(@RequestBody Users user) {
+      return ResponseEntity.ok(
+              Response.builder()
+                      .timeStamp(now())
+                      .data(Map.of("orders", ordersService.getRejectedOrderList(user)))
+                      .message("orders retrieved")
+                      .status(OK)
+                      .statusCode(OK.value())
+                      .build()
+      );
+   }
 
 
 

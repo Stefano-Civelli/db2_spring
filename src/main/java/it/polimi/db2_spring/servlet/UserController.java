@@ -38,13 +38,13 @@ public class UserController {
 
 
    @PostMapping("/LogIn")
-   public ResponseEntity<Response> logInUser(@RequestBody @Valid Users user) {
+   public ResponseEntity<Response> logInUser(@RequestBody Users user) {
 
       return ResponseEntity.ok(
               Response.builder()
                       .timeStamp(now())
-                      .data(Map.of("user", userService.checkCredentials(user)))
-                      .message("user created")
+                      .data(Map.of("auth_status: ", userService.checkCredentials(user)))
+                      .message("credentials checked")
                       .status(OK)
                       .statusCode(OK.value())
                       .build()
