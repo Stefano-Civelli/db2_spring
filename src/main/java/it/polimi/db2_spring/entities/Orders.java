@@ -1,9 +1,6 @@
 package it.polimi.db2_spring.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonFilter;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import it.polimi.db2_spring.utility.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,11 +20,11 @@ public class Orders {
     @Temporal(TemporalType.DATE)
     private Date dateOfCreation;
     private Time hourOfCreation;
-    private boolean stateOfSubscription;
+    private Boolean stateOfSubscription;
     private double totalValue;
     @Temporal(TemporalType.DATE)
     private Date startingDateOfSubscription;
-    private OrderStatus orderStatus;
+    private Boolean isRejected;
 
     @ManyToOne
     @JoinColumn(name = "order_owner")

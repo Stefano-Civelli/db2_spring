@@ -43,8 +43,8 @@ public class UserController {
       return ResponseEntity.ok(
               Response.builder()
                       .timeStamp(now())
-                      .data(Map.of("user", userService.checkCredentials(user)))
-                      .message("user created")
+                      .data(Map.of("auth_status: ", userService.checkCredentials(user)))
+                      .message("credentials checked")
                       .status(OK)
                       .statusCode(OK.value())
                       .build()

@@ -8,4 +8,5 @@ import java.util.List;
 public interface IOrdersService {
    Orders create(Orders order);
    List<Orders> getOrdersList(Users user);
+   List<Orders> getRejectedOrderList(Users user);
 }

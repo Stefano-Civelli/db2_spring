@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.lang.Boolean.TRUE;
 
 @Service
 @Transactional
@@ -31,5 +34,10 @@ public class OrdersService implements IOrdersService {
       return orderRepo.findAllByUser(user);
    }
 
+   @Override
+   public List<Orders> getRejectedOrderList(Users user) {
+      log.info("fetching rejected orders from user: " + user.getUsername());
+      return orderRepo.findAllByUser(user).stream().filter(x -> x.getIsRejected().equals(TRUE)).collect(Collectors.toList());
+   }
 
 }

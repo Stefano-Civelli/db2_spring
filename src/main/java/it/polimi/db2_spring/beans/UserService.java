@@ -60,10 +60,16 @@ public class UserService implements IUserService {
    public Boolean checkCredentials(Users user) {
 
       Optional<Users> dbUser = usrRepo.findById(user.getUsername());
-      if(dbUser.isEmpty())
+      if(dbUser.isEmpty()) {
+         log.info("authentication failed");
          return Boolean.FALSE;
-
-      return dbUser.get().authenticate(user.getPassword());
+      }
+      Boolean authStatus = dbUser.get().authenticate(user.getPassword());
+      if(authStatus == TRUE)
+         log.info("authentication succeded");
+      else
+         log.info("authentication failed");
+      return authStatus;
 
 
 //      try {
