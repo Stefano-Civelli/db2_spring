@@ -22,7 +22,7 @@ public class UserController {
 
    private final UserService userService;
 
-   @PostMapping("/SignUp")
+   @PostMapping("/sign_up")
    public ResponseEntity<Response> signUpUser(@RequestBody @Valid Users user) {
 
       return ResponseEntity.ok(
@@ -37,8 +37,8 @@ public class UserController {
    }
 
 
-   @PostMapping("/LogIn")
-   public ResponseEntity<Response> logInUser(@RequestBody @Valid Users user) {
+   @PostMapping("/log_in")
+   public ResponseEntity<Response> logInUser(@RequestBody Users user) {
 
       return ResponseEntity.ok(
               Response.builder()

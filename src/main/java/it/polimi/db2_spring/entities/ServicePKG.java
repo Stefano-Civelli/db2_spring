@@ -30,7 +30,7 @@ public class ServicePKG {
    private List<Orders> ordersOfServ;
 
    @ManyToMany
-   @JoinTable(name = "service_optproduct")
+   @JoinTable(name = "service_optProduct")
    List<OptionalProduct> products;
 
 }

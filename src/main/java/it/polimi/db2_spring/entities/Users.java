@@ -64,15 +64,15 @@ public class Users {
 //      this.orders = orders;
 //   }
 //
-////   public Order addOrder(Order order) {
-////      getOrders().add(order);
-////      order.setUser(this);
-////      return order;
-////   }
-////
-////   public Order removeOrder(Order order) {
-////      getOrders().remove(order);
-////      order.setUser(null);
-////      return order;
-////   }
+//   public Order addOrder(Order order) {
+//      getOrders().add(order);
+//      order.setUser(this);
+//      return order;
+//   }
+//
+//   public Order removeOrder(Order order) {
+//      getOrders().remove(order);
+//      order.setUser(null);
+//      return order;
+//   }
 }

@@ -18,11 +18,11 @@ public class Service {
    @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
    private Long Id;
-   private double feeExtraMin;
-   private double feeExtraSMS;
    private int numberOfMinutes;
    private int numberOfSMS;
    private int numberOfGigabytes;
+   private double feeExtraMin;
+   private double feeExtraSMS;
    private int feeExtraGigabytes;
    private ServiceType serviceType;
 

@@ -38,7 +38,7 @@ public class OrdersController {
 
 
    @GetMapping("/list")
-   public ResponseEntity<Response> getPackages(@RequestBody @Valid Users user) {
+   public ResponseEntity<Response> getPackages(@RequestBody Users user) {
       return ResponseEntity.ok(
               Response.builder()
                       .timeStamp(now())
@@ -49,11 +49,4 @@ public class OrdersController {
                       .build()
       );
    }
-
-
-
-
-
-
-
 }

@@ -23,7 +23,6 @@ public class OptionalProduct {
 
    @JsonIgnore
    @ManyToMany(mappedBy = "products")
-   List<ServicePKG> servicePKGList;
-
+   private List<ServicePKG> servicePKGList;
 
 }

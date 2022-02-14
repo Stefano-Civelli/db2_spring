@@ -30,6 +30,12 @@ public class PackageService implements IPackageService {
    }
 
    @Override
+   public ServicePKG create(ServicePKG servicePackage) {
+      log.info("saving new service package " + servicePackage.getId() + " in the DB");
+      return packageRepo.save(servicePackage);
+   }
+
+   @Override
    public Boolean delete(Long id) {
       log.info("deleting Package: " + id);
       packageRepo.deleteById(id);
