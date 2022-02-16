@@ -33,7 +33,5 @@ public class Orders {
 
     @ManyToOne
     @JoinColumn(name = "servicePKG")
-    //@JsonBackReference
     private ServicePKG servicePKG;
-
 }
