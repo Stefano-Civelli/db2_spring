@@ -37,8 +37,8 @@ public class OrdersController {
    }
 
 
-   @GetMapping("/list")
-   public ResponseEntity<Response> getOrderList(@RequestBody Users user) {
+   @GetMapping("/list/{username}")
+   public ResponseEntity<Response> getOrderList(@PathVariable("username") Users user) {
       return ResponseEntity.ok(
               Response.builder()
                       .timeStamp(now())
@@ -51,8 +51,8 @@ public class OrdersController {
    }
 
 
-   @GetMapping("/list_rejected") //basta l'username dell'utente
-   public ResponseEntity<Response> getRejectedOrderList(@RequestBody Users user) {
+   @GetMapping("/list_rejected/{username}") //basta l'username dell'utente
+   public ResponseEntity<Response> getRejectedOrderList(@PathVariable("username") Users user) {
       return ResponseEntity.ok(
               Response.builder()
                       .timeStamp(now())
