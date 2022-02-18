@@ -1,9 +1,7 @@
 package it.polimi.db2_spring.servlet;
 
 import it.polimi.db2_spring.beans.ActivationScheduleService;
-import it.polimi.db2_spring.beans.OrdersService;
 import it.polimi.db2_spring.entities.ActivationSchedule;
-import it.polimi.db2_spring.entities.Orders;
 import it.polimi.db2_spring.utility.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

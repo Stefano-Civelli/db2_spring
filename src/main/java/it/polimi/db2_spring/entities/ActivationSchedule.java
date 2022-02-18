@@ -21,5 +21,7 @@ public class ActivationSchedule {
    private Long id;
    @Temporal(TemporalType.DATE)
    private Date startingDate;
+   @Temporal(TemporalType.DATE)
+   private Date endingDate;
 
 }
