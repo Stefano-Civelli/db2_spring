@@ -2,6 +2,7 @@ package it.polimi.db2_spring.beans;
 
 import it.polimi.db2_spring.beans.interfaces.IUserService;
 import it.polimi.db2_spring.entities.Users;
+import it.polimi.db2_spring.exceptions.CredentialsException;
 import it.polimi.db2_spring.repo.UserRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,8 +24,11 @@ public class UserService implements IUserService {
    private final UserRepo usrRepo;
 
    @Override
-   public Users create(Users user) {
+   public Users create(Users user) throws CredentialsException {
       log.info("saving new user " + user.getUsername() + " in the DB");
+      if(!usrRepo.findById(user.getUsername()).isEmpty())
+         throw new CredentialsException("Key (username) is already present in the DB");
+      user.setIsInsolvent(false);
       return usrRepo.save(user);
    }
 
@@ -70,23 +74,5 @@ public class UserService implements IUserService {
       else
          log.info("authentication failed");
       return authStatus;
-
-
-//      try {
-//         uList = em.createNamedQuery("User.checkCredentials", User.class).setParameter(1, usrn)
-//                 .setParameter(2, pwd).getResultList();
-//      } catch (PersistenceException e) {
-//         throw new CredentialsException("Could not verify credentals");
-//      }
-//      if (uList.isEmpty())
-//         return null;
-//      else if (uList.size() == 1) {
-//         User foundUser = uList.get(0);
-//         return foundUser.getUsername();
-//      }
-//      throw new NonUniqueResultException("More than one user registered with same credentials");
-
    }
-
-
 }

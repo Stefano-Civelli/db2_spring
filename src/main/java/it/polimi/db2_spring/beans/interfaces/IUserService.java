@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IUserService {
 
-   Users create(Users user);
+   Users create(Users user) throws Exception;
    Users get(String username);
    Users update(Users user);
    Boolean delete(String username);
