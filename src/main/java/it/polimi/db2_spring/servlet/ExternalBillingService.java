@@ -1,12 +1,15 @@
 package it.polimi.db2_spring.servlet;
 
+import it.polimi.db2_spring.beans.OrdersService;
+import it.polimi.db2_spring.entities.Orders;
+import it.polimi.db2_spring.repo.OrderRepo;
 import it.polimi.db2_spring.utility.Response;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.criterion.Order;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Map;
 import java.util.Random;
 
@@ -18,13 +21,18 @@ import static org.springframework.http.HttpStatus.OK;
 @RequestMapping("/billing_service")
 @RequiredArgsConstructor
 public class ExternalBillingService {
+   private final OrdersService ordersService;
 
-   @PostMapping("/check_payment")
-   public ResponseEntity<Response> checkPaymentInfo() {
+   @GetMapping("/check_payment")
+   public ResponseEntity<Response> checkPaymentInfo(@RequestBody @Valid Orders order) {
+      System.out.println(order.getId());
+      boolean paymentOutcome = isPaymentInfoOk(ordersService.getById(order.getId()));
+
+
       return ResponseEntity.ok(
               Response.builder()
                       .timeStamp(now())
-                      .data(Map.of("isPaymentInfoOk", isPaymentInfoOk()))
+                      .data(Map.of("isPaymentInfoOk", paymentOutcome))
                       .message("payment info checked")
                       .status(OK)
                       .statusCode(OK.value())
@@ -32,13 +40,18 @@ public class ExternalBillingService {
       );
    }
 
-   private Boolean isPaymentInfoOk() {
+   private Boolean isPaymentInfoOk(Orders order) {
       Random rand = new Random();
       int n = rand.nextInt(2);
-      if(n == 1)
+      if(n == 1) {
+         order.setIsRejected(Boolean.FALSE);
+         ordersService.update(order);
          return Boolean.TRUE;
-      else
-          return Boolean.FALSE;
+      }
+      else {
+         order.setIsRejected(Boolean.TRUE);
+         ordersService.update(order);
+         return Boolean.FALSE;
+      }
    }
-
 }

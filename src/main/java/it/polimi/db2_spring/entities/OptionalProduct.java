@@ -25,4 +25,7 @@ public class OptionalProduct {
    @ManyToMany(mappedBy = "products")
    private List<ServicePKG> servicePKGList;
 
+   @JsonIgnore
+   @ManyToMany(mappedBy = "optionalProducts")
+   private  List<Orders> orders;
 }

@@ -24,12 +24,12 @@ public class OrdersController {
 
    @PostMapping("/place_order")
    public ResponseEntity<Response> placeOrder(@RequestBody @Valid Orders order) {
-
+      order.setIsRejected(null);
       return ResponseEntity.ok(
               Response.builder()
                       .timeStamp(now())
-                      .data(Map.of("user", ordersService.create(order)))
-                      .message("user created")
+                      .data(Map.of("order", ordersService.create(order)))
+                      .message("order created")
                       .status(CREATED)
                       .statusCode(CREATED.value())
                       .build()

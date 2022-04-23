@@ -40,4 +40,15 @@ public class OrdersService implements IOrdersService {
       return orderRepo.findAllByUser(user).stream().filter(x -> x.getIsRejected().equals(TRUE)).collect(Collectors.toList());
    }
 
+   @Override
+   public Orders getById(Long id) {
+      log.info("getting from Db order: " + orderRepo.getById(id).getId());
+      return orderRepo.getById(id);
+   }
+
+   @Override
+   public Orders update(Orders order) {
+      log.info("updating order " + order.getId() + " in the DB");
+      return orderRepo.save(order);
+   }
 }
