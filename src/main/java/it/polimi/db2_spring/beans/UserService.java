@@ -1,6 +1,7 @@
 package it.polimi.db2_spring.beans;
 
 import it.polimi.db2_spring.beans.interfaces.IUserService;
+import it.polimi.db2_spring.entities.Orders;
 import it.polimi.db2_spring.entities.Users;
 import it.polimi.db2_spring.exceptions.CredentialsException;
 import it.polimi.db2_spring.repo.UserRepo;
@@ -26,8 +27,11 @@ public class UserService implements IUserService {
    @Override
    public Users create(Users user) throws CredentialsException {
       log.info("saving new user " + user.getUsername() + " in the DB");
-      if(!usrRepo.findById(user.getUsername()).isEmpty())
-         throw new CredentialsException("Key (username) is already present in the DB");
+
+      Optional<Users> userDb = usrRepo.findById(user.getUsername());
+
+      if(!userDb.isEmpty() || !usrRepo.findByMail(user.getMail()).isEmpty())
+         throw new CredentialsException("Username/Mail already present in the DB");
       user.setIsInsolvent(false);
       return usrRepo.save(user);
    }
