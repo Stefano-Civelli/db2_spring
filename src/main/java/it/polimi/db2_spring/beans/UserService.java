@@ -33,9 +33,15 @@ public class UserService implements IUserService {
    }
 
    @Override
-   public Users getByUsername(String username) {
+   public Users getByUsername(String username) throws CredentialsException{
+      Optional<Users> dbUser = usrRepo.findById(username);
+
       log.info("getting from Db user: " + username);
-      return usrRepo.getById(username);
+
+      if(dbUser.isEmpty())
+         throw new CredentialsException("User you tried to retrieve is not present in the DB");
+
+      return dbUser.get();
    }
 
    @Override
@@ -62,7 +68,6 @@ public class UserService implements IUserService {
 
    @Override
    public Boolean checkCredentials(Users user) {
-
       Optional<Users> dbUser = usrRepo.findById(user.getUsername());
       if(dbUser.isEmpty()) {
          log.info("authentication failed");
@@ -70,7 +75,7 @@ public class UserService implements IUserService {
       }
       Boolean authStatus = dbUser.get().authenticate(user.getPassword());
       if(authStatus == TRUE)
-         log.info("authentication succeded");
+         log.info("authentication succeeded");
       else
          log.info("authentication failed");
       return authStatus;

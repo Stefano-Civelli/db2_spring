@@ -2,6 +2,7 @@ package it.polimi.db2_spring.servlet;
 
 import it.polimi.db2_spring.beans.OrdersService;
 import it.polimi.db2_spring.entities.Orders;
+import it.polimi.db2_spring.exceptions.CredentialsException;
 import it.polimi.db2_spring.repo.OrderRepo;
 import it.polimi.db2_spring.utility.Response;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.Map;
 import java.util.Random;
 
 import static java.time.LocalDateTime.now;
+import static org.springframework.http.HttpStatus.CONFLICT;
 import static org.springframework.http.HttpStatus.OK;
 
 //pretends to be the interface of the external billing service
@@ -26,18 +28,29 @@ public class ExternalBillingService {
    @GetMapping("/check_payment")
    public ResponseEntity<Response> checkPaymentInfo(@RequestBody @Valid Orders order) {
       System.out.println(order.getId());
-      boolean paymentOutcome = isPaymentInfoOk(ordersService.getById(order.getId()));
+      boolean paymentOutcome = false;
 
-
-      return ResponseEntity.ok(
-              Response.builder()
-                      .timeStamp(now())
-                      .data(Map.of("isPaymentInfoOk", paymentOutcome))
-                      .message("payment info checked")
-                      .status(OK)
-                      .statusCode(OK.value())
-                      .build()
-      );
+      try {
+         paymentOutcome = isPaymentInfoOk(ordersService.getById(order.getId()));
+         return ResponseEntity.ok(
+                 Response.builder()
+                         .timeStamp(now())
+                         .data(Map.of("isPaymentInfoOk", paymentOutcome))
+                         .message("payment info checked")
+                         .status(OK)
+                         .statusCode(OK.value())
+                         .build()
+         );
+      } catch (CredentialsException e) {
+         return ResponseEntity.ok(
+                 Response.builder()
+                         .timeStamp(now())
+                         .message(e.getMessage())
+                         .status(CONFLICT)
+                         .statusCode(CONFLICT.value())
+                         .build()
+         );
+      }
    }
 
    private Boolean isPaymentInfoOk(Orders order) {

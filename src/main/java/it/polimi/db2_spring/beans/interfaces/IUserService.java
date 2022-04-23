@@ -9,7 +9,7 @@ import java.util.List;
 public interface IUserService {
 
    Users create(Users user) throws Exception;
-   Users getByUsername(String username);
+   Users getByUsername(String username) throws Exception;
    Users update(Users user);
    Boolean delete(String username);
    List<Users> getUserList(int limit);

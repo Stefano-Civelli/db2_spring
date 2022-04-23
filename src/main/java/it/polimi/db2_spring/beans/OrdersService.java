@@ -3,6 +3,7 @@ package it.polimi.db2_spring.beans;
 import it.polimi.db2_spring.beans.interfaces.IOrdersService;
 import it.polimi.db2_spring.entities.Orders;
 import it.polimi.db2_spring.entities.Users;
+import it.polimi.db2_spring.exceptions.CredentialsException;
 import it.polimi.db2_spring.repo.OrderRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static java.lang.Boolean.TRUE;
@@ -41,9 +43,15 @@ public class OrdersService implements IOrdersService {
    }
 
    @Override
-   public Orders getById(Long id) {
-      log.info("getting from Db order: " + orderRepo.getById(id).getId());
-      return orderRepo.getById(id);
+   public Orders getById(Long id) throws CredentialsException {
+      Optional<Orders> orderDb = orderRepo.findById(id);
+
+      log.info("getting from Db order: " + id);
+
+      if(orderDb.isEmpty())
+         throw new CredentialsException("Order you tried to retrieve is not present in the DB");
+
+      return orderDb.get();
    }
 
    @Override
