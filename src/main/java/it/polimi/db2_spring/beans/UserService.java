@@ -1,6 +1,7 @@
 package it.polimi.db2_spring.beans;
 
 import it.polimi.db2_spring.beans.interfaces.IUserService;
+import it.polimi.db2_spring.entities.Orders;
 import it.polimi.db2_spring.entities.Users;
 import it.polimi.db2_spring.exceptions.CredentialsException;
 import it.polimi.db2_spring.repo.UserRepo;
@@ -26,16 +27,25 @@ public class UserService implements IUserService {
    @Override
    public Users create(Users user) throws CredentialsException {
       log.info("saving new user " + user.getUsername() + " in the DB");
-      if(!usrRepo.findById(user.getUsername()).isEmpty())
-         throw new CredentialsException("Key (username) is already present in the DB");
+
+      Optional<Users> userDb = usrRepo.findById(user.getUsername());
+
+      if(!userDb.isEmpty() || !usrRepo.findByMail(user.getMail()).isEmpty())
+         throw new CredentialsException("Username/Mail already present in the DB");
       user.setIsInsolvent(false);
       return usrRepo.save(user);
    }
 
    @Override
-   public Users getByUsername(String username) {
+   public Users getByUsername(String username) throws CredentialsException{
+      Optional<Users> dbUser = usrRepo.findById(username);
+
       log.info("getting from Db user: " + username);
-      return usrRepo.getById(username);
+
+      if(dbUser.isEmpty())
+         throw new CredentialsException("User you tried to retrieve is not present in the DB");
+
+      return dbUser.get();
    }
 
    @Override
@@ -62,7 +72,6 @@ public class UserService implements IUserService {
 
    @Override
    public Boolean checkCredentials(Users user) {
-
       Optional<Users> dbUser = usrRepo.findById(user.getUsername());
       if(dbUser.isEmpty()) {
          log.info("authentication failed");
@@ -70,7 +79,7 @@ public class UserService implements IUserService {
       }
       Boolean authStatus = dbUser.get().authenticate(user.getPassword());
       if(authStatus == TRUE)
-         log.info("authentication succeded");
+         log.info("authentication succeeded");
       else
          log.info("authentication failed");
       return authStatus;
