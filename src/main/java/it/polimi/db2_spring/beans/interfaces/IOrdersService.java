@@ -9,4 +9,6 @@ public interface IOrdersService {
    Orders create(Orders order);
    List<Orders> getOrdersList(Users user);
    List<Orders> getRejectedOrderList(Users user);
+   Orders getById(Long id);
+   Orders update(Orders order);
 }

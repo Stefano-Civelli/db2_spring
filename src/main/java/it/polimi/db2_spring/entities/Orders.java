@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -18,9 +20,8 @@ public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Temporal(TemporalType.DATE)
-    private Date dateOfCreation;
-    private Time hourOfCreation;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date creationTime;
     private double totalValue;
     @Temporal(TemporalType.DATE)
     private Date startingDateOfSubscription;
@@ -36,8 +37,9 @@ public class Orders {
     @JoinColumn(name = "servicePKG")
     private ServicePKG servicePKG;
 
-    //chosen optional prod
-
+    @ManyToMany
+    @JoinTable(name = "order_opt_product")
+    private List<OptionalProduct> optionalProducts;
     //potrei mettere qua l'activation schedule così la ho linkata all'ordine
 
 }

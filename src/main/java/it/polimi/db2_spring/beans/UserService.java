@@ -33,7 +33,7 @@ public class UserService implements IUserService {
    }
 
    @Override
-   public Users get(String username) {
+   public Users getByUsername(String username) {
       log.info("getting from Db user: " + username);
       return usrRepo.getById(username);
    }
