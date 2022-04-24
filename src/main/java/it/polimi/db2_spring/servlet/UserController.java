@@ -6,6 +6,7 @@ import it.polimi.db2_spring.entities.Users;
 import it.polimi.db2_spring.exceptions.CredentialsException;
 import it.polimi.db2_spring.utility.Response;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +29,7 @@ public class UserController {
          return ResponseEntity.ok(
                  Response.builder()
                          .timeStamp(now())
-                         .data(Map.of("user", userService.create(user)))
+                         .data(Map.of("user", userService.create(user), "username", user.getUsername()))
                          .message("user created")
                          .status(CREATED)
                          .statusCode(CREATED.value())
@@ -49,11 +50,10 @@ public class UserController {
 
    @PostMapping("/log_in")
    public ResponseEntity<Response> logInUser(@RequestBody Users user) {
-
       return ResponseEntity.ok(
               Response.builder()
                       .timeStamp(now())
-                      .data(Map.of("auth_status: ", userService.checkCredentials(user)))
+                      .data(Map.of("auth_status", userService.checkCredentials(user), "username", user.getUsername()))
                       .message("credentials checked")
                       .status(OK)
                       .statusCode(OK.value())
