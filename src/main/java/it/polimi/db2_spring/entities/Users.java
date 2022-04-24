@@ -29,7 +29,6 @@ public class Users {
    @NotEmpty(message = "a mail is needed")
    private String mail;
    private Boolean isInsolvent;
-   private Boolean isAdmin;
 
    //add "imported" keys
    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY) //must be the same as the object on which I perform the JoinColumn
@@ -40,39 +39,4 @@ public class Users {
       return Objects.equals(pwd, this.password);
    }
 
-
-   //--------------------------------------------------------------------------
-
-
-
-//
-//
-//
-//   public User(String username, String password, String mail) {
-//      this.username = username;
-//      this.password = password;
-//      this.mail = mail;
-//      this.insolvent = false;
-//   }
-//
-//
-//   public List<Order> getOrders() {
-//      return this.orders;
-//   }
-//
-//   public void setOrders(List<Order> orders) {
-//      this.orders = orders;
-//   }
-//
-//   public Order addOrder(Order order) {
-//      getOrders().add(order);
-//      order.setUser(this);
-//      return order;
-//   }
-//
-//   public Order removeOrder(Order order) {
-//      getOrders().remove(order);
-//      order.setUser(null);
-//      return order;
-//   }
 }
