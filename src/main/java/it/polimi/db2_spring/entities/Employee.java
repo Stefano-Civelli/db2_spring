@@ -30,10 +30,8 @@ public class Employee {
    @Transient
    private String insertedAdminPsw;
 
-   public Boolean adminPswOk () {
-      return insertedAdminPsw.equals(adminPassword);
-   }
-   public Boolean authenticate(String pwd) {
-      return ( pwd.equals(password) && insertedAdminPsw.equals(adminPassword) );
+   public Boolean adminPswOk () { return adminPassword.equals(insertedAdminPsw); }
+   public Boolean authenticate(String pwd, String adminPsw) {
+      return (pwd.equals(password) && adminPsw.equals(adminPassword));
    }
 }

@@ -40,7 +40,7 @@ public class EmployeeService implements IEmployeeService {
          log.info("authentication failed");
          return Boolean.FALSE;
       }
-      Boolean authStatus = dbEmployee.get().authenticate(employee.getPassword());
+      Boolean authStatus = dbEmployee.get().authenticate(employee.getPassword(), employee.getInsertedAdminPsw());
       if(authStatus == TRUE)
          log.info("authentication succeeded");
       else
