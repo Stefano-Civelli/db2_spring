@@ -38,5 +38,4 @@ public class Users {
    public Boolean authenticate(String pwd) {
       return Objects.equals(pwd, this.password);
    }
-
 }
