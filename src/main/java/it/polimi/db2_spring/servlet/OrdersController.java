@@ -37,7 +37,7 @@ public class OrdersController {
    }
 
 
-   @GetMapping("/list/{username}")
+   @GetMapping("/list/{username}") // can be instresting with $router.push() on frontend side
    public ResponseEntity<Response> getOrderList(@PathVariable("username") Users user) {
       return ResponseEntity.ok(
               Response.builder()
