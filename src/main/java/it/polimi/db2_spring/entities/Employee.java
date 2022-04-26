@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.Objects;
 
 @Entity
 @Data
@@ -27,9 +28,10 @@ public class Employee {
    private String mail;
 
    @Transient
-   private String receivedAdminPsw;
+   private String insertedAdminPsw;
 
-   public Boolean adminPswOk () {
-      return receivedAdminPsw.equals(adminPassword);
+   public Boolean adminPswOk () { return adminPassword.equals(insertedAdminPsw); }
+   public Boolean authenticate(String pwd, String adminPsw) {
+      return (pwd.equals(password) && adminPsw.equals(adminPassword));
    }
 }

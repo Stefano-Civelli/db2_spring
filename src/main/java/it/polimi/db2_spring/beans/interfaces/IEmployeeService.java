@@ -5,4 +5,5 @@ import it.polimi.db2_spring.exceptions.CredentialsException;
 
 public interface IEmployeeService {
    Employee create (Employee employee) throws CredentialsException;
+   Boolean checkCredentials(Employee employee);
 }

@@ -3,6 +3,7 @@ package it.polimi.db2_spring.servlet;
 
 import it.polimi.db2_spring.beans.EmployeeService;
 import it.polimi.db2_spring.entities.Employee;
+import it.polimi.db2_spring.entities.Users;
 import it.polimi.db2_spring.exceptions.CredentialsException;
 import it.polimi.db2_spring.utility.Response;
 import lombok.RequiredArgsConstructor;
@@ -46,6 +47,16 @@ public class EmployeeController {
       }
    }
 
-   //aggiungere endpoint per login dell' Employee
-
+   @PostMapping("/log_in")
+   public ResponseEntity<Response> logInUser(@RequestBody Employee employee) {
+      return ResponseEntity.ok(
+              Response.builder()
+                      .timeStamp(now())
+                      .data(Map.of("auth_status", employeeService.checkCredentials(employee), "username", employee.getUsername()))
+                      .message("credentials checked")
+                      .status(OK)
+                      .statusCode(OK.value())
+                      .build()
+      );
+   }
 }
