@@ -39,7 +39,8 @@ public class OrdersService implements IOrdersService {
    @Override
    public List<Orders> getRejectedOrderList(Users user) {
       log.info("fetching rejected orders from user: " + user.getUsername());
-      return orderRepo.findAllByUser(user).stream().filter(x -> x.getIsRejected().equals(TRUE)).collect(Collectors.toList());
+      //return orderRepo.findAllByUser(user).stream().filter(x -> x.getIsRejected().equals(TRUE)).collect(Collectors.toList());
+      return orderRepo.findRejectedOrdersOfUser(user);
    }
 
    @Override
