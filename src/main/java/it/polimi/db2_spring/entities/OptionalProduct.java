@@ -17,6 +17,7 @@ public class OptionalProduct {
    @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
    private Long productCode;
+   private String name;
    private String briefProductDescription;
    // magari aggiungere un product type
    private double monthlyFee;
