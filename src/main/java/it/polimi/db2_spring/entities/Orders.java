@@ -1,14 +1,11 @@
 package it.polimi.db2_spring.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import it.polimi.db2_spring.utility.ValidityPeriod;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -26,7 +23,6 @@ public class Orders {
     @Temporal(TemporalType.DATE)
     private Date startingDateOfSubscription;
     private Boolean isRejected; //se false devo creaare activation schedule
-    private ValidityPeriod validityPeriod;
 
     @ManyToOne
     @JoinColumn(name = "order_owner")
@@ -40,6 +36,10 @@ public class Orders {
     @ManyToMany
     @JoinTable(name = "order_opt_product")
     private List<OptionalProduct> optionalProducts;
+
     //potrei mettere qua l'activation schedule così la ho linkata all'ordine
 
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private ValidityPeriod period;
 }

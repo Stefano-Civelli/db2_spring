@@ -1,8 +1,5 @@
 package it.polimi.db2_spring.entities;
 
-
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,7 +15,6 @@ import java.util.Objects;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class Users {
    @Id
    private String username;
@@ -30,10 +26,13 @@ public class Users {
    private String mail;
    private Boolean isInsolvent;
 
-   //add "imported" keys
    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY) //must be the same as the object on which I perform the JoinColumn
    @JsonManagedReference(value = "boia")
    private List<Orders> orders;
+
+   @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+   //@JsonManagedReference(value = "boia")
+   private List<Alert> alerts;
 
    public Boolean authenticate(String pwd) {
       return Objects.equals(pwd, this.password);

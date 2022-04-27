@@ -25,12 +25,14 @@ public class ServicePKG {
    private List<Service> services;
 
    @OneToMany(mappedBy = "servicePKG")
-   //@JsonManagedReference
    @JsonIgnore
    private List<Orders> ordersOfServ;
 
    @ManyToMany
    @JoinTable(name = "service_optProduct")
-   List<OptionalProduct> products;
+   private List<OptionalProduct> products;
 
+   @ManyToMany
+   @JoinTable(name = "servicePkg_period")
+   private List<ValidityPeriod> periods;
 }
