@@ -1,6 +1,7 @@
 package it.polimi.db2_spring.servlet;
 
 import it.polimi.db2_spring.beans.OrdersService;
+import it.polimi.db2_spring.beans.UserService;
 import it.polimi.db2_spring.entities.Orders;
 import it.polimi.db2_spring.exceptions.CredentialsException;
 import it.polimi.db2_spring.repo.OrderRepo;
@@ -24,6 +25,7 @@ import static org.springframework.http.HttpStatus.OK;
 @RequiredArgsConstructor
 public class ExternalBillingService {
    private final OrdersService ordersService;
+   private final UserService userService;
 
    @GetMapping("/check_payment")
    public ResponseEntity<Response> checkPaymentInfo(@RequestBody @Valid Orders order) {
@@ -53,8 +55,10 @@ public class ExternalBillingService {
       }
    }
 
+   //questa merda andrebbe nel bean
+   //resettare a false quando non ci sono piu orders rejected per quello user -> fare con un trigger
    private Boolean isPaymentInfoOk(Orders order) throws CredentialsException {
-      if(order.getIsRejected().equals(Boolean.FALSE))
+      if(order.getIsRejected() != null && order.getIsRejected().equals(Boolean.FALSE))
          throw new CredentialsException("This order has already been payed");
       Random rand = new Random();
       int n = rand.nextInt(2);
@@ -67,6 +71,7 @@ public class ExternalBillingService {
          order.setIsRejected(Boolean.TRUE);
          ordersService.update(order);
          order.getUser().setIsInsolvent(Boolean.TRUE);
+         userService.update(order.getUser());
          return Boolean.FALSE;
       }
    }

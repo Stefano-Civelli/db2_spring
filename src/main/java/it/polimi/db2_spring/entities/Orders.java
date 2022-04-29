@@ -40,6 +40,6 @@ public class Orders {
     //potrei mettere qua l'activation schedule così la ho linkata all'ordine
 
     @ManyToOne
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "period_id")
     private ValidityPeriod period;
 }

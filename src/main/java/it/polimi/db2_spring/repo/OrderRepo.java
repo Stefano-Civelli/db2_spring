@@ -10,7 +10,6 @@ import java.util.List;
 public interface OrderRepo extends JpaRepository<Orders, Long> {
    List<Orders> findAllByUser(Users user);
 
-   // to be checked
    @Query("select o from Orders o where o.user = ?1 and o.isRejected = true")
    List<Orders> findRejectedOrdersOfUser(Users user);
 }
