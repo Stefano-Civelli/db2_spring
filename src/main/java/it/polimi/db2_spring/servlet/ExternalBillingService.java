@@ -53,7 +53,9 @@ public class ExternalBillingService {
       }
    }
 
-   private Boolean isPaymentInfoOk(Orders order) {
+   private Boolean isPaymentInfoOk(Orders order) throws CredentialsException {
+      if(order.getIsRejected().equals(Boolean.FALSE))
+         throw new CredentialsException("This order has already been payed");
       Random rand = new Random();
       int n = rand.nextInt(2);
       if(n == 1) {
@@ -64,6 +66,7 @@ public class ExternalBillingService {
       else {
          order.setIsRejected(Boolean.TRUE);
          ordersService.update(order);
+         order.getUser().setIsInsolvent(Boolean.TRUE);
          return Boolean.FALSE;
       }
    }
