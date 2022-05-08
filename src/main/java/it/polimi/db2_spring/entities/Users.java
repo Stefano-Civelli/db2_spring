@@ -25,6 +25,8 @@ public class Users {
    @NotEmpty(message = "a mail is needed")
    private String mail;
    private Boolean isInsolvent;
+   @Column(columnDefinition = "integer default 0")
+   private int failedPayments;
 
    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY) //must be the same as the object on which I perform the JoinColumn
    @JsonManagedReference(value = "boia")

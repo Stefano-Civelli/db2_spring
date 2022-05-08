@@ -22,6 +22,6 @@ public class PurchasesPerPackage {
     @JoinColumn(name = "id")
     private ServicePKG servicePackage;
 
-    @Column( columnDefinition = "integer default 0")
+    @Column(columnDefinition = "integer default 0")
     private int numberOfPurchases;
 }
