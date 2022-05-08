@@ -13,5 +13,6 @@ public interface IUserService {
    Boolean delete(String username);
    List<Users> getUserList(int limit);
    Boolean checkCredentials(Users user);
+   Boolean incrementFailedPaymentsAndCheckForAlert(Users user);
 
 }

@@ -1,6 +1,7 @@
 package it.polimi.db2_spring.beans;
 
 import it.polimi.db2_spring.beans.interfaces.IUserService;
+import it.polimi.db2_spring.entities.Alert;
 import it.polimi.db2_spring.entities.Users;
 import it.polimi.db2_spring.exceptions.CredentialsException;
 import it.polimi.db2_spring.repo.UserRepo;
@@ -83,4 +84,11 @@ public class UserService implements IUserService {
          log.info("authentication failed");
       return authStatus;
    }
+
+   @Override
+   public Boolean incrementFailedPaymentsAndCheckForAlert(Users user) {
+      user.incrementFailedPayments();
+      return user.getFailedPayments() == 3;
+   }
+
 }

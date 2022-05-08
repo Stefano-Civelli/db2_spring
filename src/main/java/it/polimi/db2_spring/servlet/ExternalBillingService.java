@@ -1,13 +1,14 @@
 package it.polimi.db2_spring.servlet;
 
+import it.polimi.db2_spring.beans.AlertService;
 import it.polimi.db2_spring.beans.OrdersService;
 import it.polimi.db2_spring.beans.UserService;
+import it.polimi.db2_spring.entities.Alert;
 import it.polimi.db2_spring.entities.Orders;
+import it.polimi.db2_spring.entities.Users;
 import it.polimi.db2_spring.exceptions.CredentialsException;
-import it.polimi.db2_spring.repo.OrderRepo;
 import it.polimi.db2_spring.utility.Response;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.criterion.Order;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,14 +27,27 @@ import static org.springframework.http.HttpStatus.OK;
 public class ExternalBillingService {
    private final OrdersService ordersService;
    private final UserService userService;
+   private final AlertService alertService;
 
    @GetMapping("/check_payment")
    public ResponseEntity<Response> checkPaymentInfo(@RequestBody @Valid Orders order) {
       System.out.println(order.getId());
+      Orders dbOrder;
       boolean paymentOutcome = false;
 
       try {
-         paymentOutcome = isPaymentInfoOk(ordersService.getById(order.getId()));
+         dbOrder = ordersService.getById(order.getId());
+         paymentOutcome = isPaymentInfoOk(dbOrder);
+
+         Users orderOwner = dbOrder.getUser();
+         if(!paymentOutcome) {
+
+            //is true if need to create a new alert
+            if(userService.incrementFailedPaymentsAndCheckForAlert(orderOwner)) {
+               alertService.create(new Alert(null, dbOrder.getTotalValue(), dbOrder.getCreationTime(), orderOwner));
+            }
+         }
+
          return ResponseEntity.ok(
                  Response.builder()
                          .timeStamp(now())
@@ -56,7 +70,6 @@ public class ExternalBillingService {
    }
 
    //questa merda andrebbe nel bean
-   //resettare a false quando non ci sono piu orders rejected per quello user -> fare con un trigger
    private Boolean isPaymentInfoOk(Orders order) throws CredentialsException {
       if(order.getIsRejected() != null && order.getIsRejected().equals(Boolean.FALSE))
          throw new CredentialsException("This order has already been payed");
