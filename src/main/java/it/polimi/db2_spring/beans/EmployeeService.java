@@ -2,7 +2,6 @@ package it.polimi.db2_spring.beans;
 
 import it.polimi.db2_spring.beans.interfaces.IEmployeeService;
 import it.polimi.db2_spring.entities.Employee;
-import it.polimi.db2_spring.entities.Users;
 import it.polimi.db2_spring.exceptions.CredentialsException;
 import it.polimi.db2_spring.repo.EmployeeRepo;
 import lombok.RequiredArgsConstructor;

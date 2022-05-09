@@ -20,6 +20,7 @@ public class Orders {
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationTime;
     private double totalValue;
+    private double packageValueWithoutOptions;
     @Temporal(TemporalType.DATE)
     private Date startingDateOfSubscription;
     private Boolean isRejected; //se false devo creaare activation schedule
@@ -36,8 +37,6 @@ public class Orders {
     @ManyToMany
     @JoinTable(name = "order_opt_product")
     private List<OptionalProduct> optionalProducts;
-
-    //potrei mettere qua l'activation schedule così la ho linkata all'ordine
 
     @ManyToOne
     @JoinColumn(name = "period_id")

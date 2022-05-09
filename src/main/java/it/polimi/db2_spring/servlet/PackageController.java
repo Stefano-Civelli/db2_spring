@@ -2,7 +2,6 @@ package it.polimi.db2_spring.servlet;
 
 import it.polimi.db2_spring.beans.PackageService;
 import it.polimi.db2_spring.entities.ServicePKG;
-import it.polimi.db2_spring.entities.Users;
 import it.polimi.db2_spring.utility.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

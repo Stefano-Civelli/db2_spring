@@ -1,6 +1,5 @@
 package it.polimi.db2_spring.servlet;
 
-
 import it.polimi.db2_spring.beans.UserService;
 import it.polimi.db2_spring.entities.Users;
 import it.polimi.db2_spring.exceptions.CredentialsException;

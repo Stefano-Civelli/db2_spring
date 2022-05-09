@@ -3,6 +3,7 @@ package it.polimi.db2_spring.servlet;
 import it.polimi.db2_spring.beans.OrdersService;
 import it.polimi.db2_spring.entities.Orders;
 import it.polimi.db2_spring.entities.Users;
+import it.polimi.db2_spring.exceptions.OrderCreationException;
 import it.polimi.db2_spring.utility.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -12,8 +13,8 @@ import javax.validation.Valid;
 import java.util.Map;
 
 import static java.time.LocalDateTime.now;
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.HttpStatus.CONFLICT;
 
 @RestController
 @RequestMapping("/orders")
@@ -25,15 +26,26 @@ public class OrdersController {
    @PostMapping("/place_order")
    public ResponseEntity<Response> placeOrder(@RequestBody @Valid Orders order) {
       order.setIsRejected(null);
-      return ResponseEntity.ok(
-              Response.builder()
-                      .timeStamp(now())
-                      .data(Map.of("order", ordersService.create(order)))
-                      .message("order created")
-                      .status(CREATED)
-                      .statusCode(CREATED.value())
-                      .build()
-      );
+      try {
+         return ResponseEntity.ok(
+                 Response.builder()
+                         .timeStamp(now())
+                         .data(Map.of("order", ordersService.create(order)))
+                         .message("order created")
+                         .status(CREATED)
+                         .statusCode(CREATED.value())
+                         .build()
+         );
+      } catch (OrderCreationException e) {
+         return ResponseEntity.ok(
+                 Response.builder()
+                         .timeStamp(now())
+                         .message(e.getMessage())
+                         .status(CONFLICT)
+                         .statusCode(CONFLICT.value())
+                         .build()
+         );
+      }
    }
 
 

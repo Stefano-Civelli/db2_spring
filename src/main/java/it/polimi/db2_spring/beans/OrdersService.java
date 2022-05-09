@@ -1,10 +1,15 @@
 package it.polimi.db2_spring.beans;
 
 import it.polimi.db2_spring.beans.interfaces.IOrdersService;
+import it.polimi.db2_spring.entities.OptionalProduct;
 import it.polimi.db2_spring.entities.Orders;
 import it.polimi.db2_spring.entities.Users;
+import it.polimi.db2_spring.entities.ValidityPeriod;
 import it.polimi.db2_spring.exceptions.CredentialsException;
+import it.polimi.db2_spring.exceptions.OrderCreationException;
+import it.polimi.db2_spring.repo.OptionalProductRepo;
 import it.polimi.db2_spring.repo.OrderRepo;
+import it.polimi.db2_spring.repo.ValidityPeriodRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -12,9 +17,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-
-import static java.lang.Boolean.TRUE;
 
 @Service
 @Transactional
@@ -23,10 +25,39 @@ import static java.lang.Boolean.TRUE;
 public class OrdersService implements IOrdersService {
 
    private final OrderRepo orderRepo;
+   private final ValidityPeriodRepo validityPeriodRepo;
+   private final OptionalProductRepo optionalProductRepo;
 
    @Override
-   public Orders create(Orders order) {
+   public Orders create(Orders order) throws OrderCreationException {
       log.info("saving new order " + order.getId() + " in the DB");
+
+      List<OptionalProduct> optionalProducts = order.getOptionalProducts();
+      OptionalProduct optionalProduct = null;
+      int optionalProductMonthlyRevenue = 0;
+
+      if(optionalProducts != null) {
+         for (OptionalProduct product : optionalProducts) {
+
+            Optional<OptionalProduct> optionalFromDb = optionalProductRepo.findById(product.getProductCode());
+
+            if(optionalFromDb.isEmpty())
+               throw new OrderCreationException("One of the specified optional products does not exists");
+
+            optionalProduct = optionalFromDb.get();
+            optionalProductMonthlyRevenue += optionalProduct.getMonthlyFee();
+         }
+      }
+
+      Optional<ValidityPeriod> periodFromDb = validityPeriodRepo.findById(order.getPeriod().getId());
+
+      if(periodFromDb.isEmpty())
+         throw new OrderCreationException("The specified validity period does not exists");
+
+      ValidityPeriod period = periodFromDb.get();
+
+      order.setTotalValue(period.getMonths() * (period.getMonthlyFee() + optionalProductMonthlyRevenue));
+      order.setPackageValueWithoutOptions(period.getMonths() * period.getMonthlyFee());
       return orderRepo.save(order);
    }
 
