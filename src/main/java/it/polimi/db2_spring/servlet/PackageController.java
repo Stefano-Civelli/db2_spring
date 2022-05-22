@@ -7,12 +7,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.Map;
 
 import static java.time.LocalDateTime.now;
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.HttpStatus.CONFLICT;
 
 @RestController
 @RequestMapping("/serv_pkg")
@@ -50,7 +51,6 @@ public class PackageController {
 
    @PostMapping("/package_create")
    public ResponseEntity<Response> createServicePackage(@RequestBody @Valid ServicePKG servicePKG) {
-
       return ResponseEntity.ok(
               Response.builder()
                       .timeStamp(now())
@@ -60,5 +60,31 @@ public class PackageController {
                       .statusCode(CREATED.value())
                       .build()
       );
+   }
+
+   @GetMapping("/get_package/{id}")
+   public ResponseEntity<Response> getServiceById(@PathVariable("id") Long servicePKGId) {
+      try {
+         ServicePKG servicePKG = packageService.getPackageById(servicePKGId);
+
+         return ResponseEntity.ok(
+                 Response.builder()
+                         .timeStamp(now())
+                         .data(Map.of("package", servicePKG))
+                         .message("packages retrieved")
+                         .status(OK)
+                         .statusCode(OK.value())
+                         .build()
+         );
+      } catch (EntityNotFoundException e) {
+         return ResponseEntity.ok(
+                 Response.builder()
+                         .timeStamp(now())
+                         .message(e.getMessage())
+                         .status(CONFLICT)
+                         .statusCode(CONFLICT.value())
+                         .build()
+         );
+      }
    }
 }

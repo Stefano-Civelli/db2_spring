@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,5 +41,11 @@ public class PackageService implements IPackageService {
       log.info("deleting Package: " + id);
       packageRepo.deleteById(id);
       return TRUE;
+   }
+
+   @Override
+   public ServicePKG getPackageById(Long id) throws EntityNotFoundException {
+      log.info("fetching Package: " + id);
+      return packageRepo.getById(id);
    }
 }
