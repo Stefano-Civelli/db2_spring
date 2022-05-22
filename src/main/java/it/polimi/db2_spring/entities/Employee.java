@@ -19,11 +19,10 @@ public class Employee {
 
    @Id
    private String username;
-   @NotEmpty
+   @Column(nullable = false)
    private String password;
    @Basic(fetch = FetchType.LAZY)
-   @Column(unique = true)
-   @NotEmpty(message = "a mail is needed")
+   @Column(unique = true, nullable = false)
    private String mail;
 
    @Transient

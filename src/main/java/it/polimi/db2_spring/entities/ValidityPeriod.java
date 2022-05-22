@@ -15,15 +15,16 @@ public class ValidityPeriod {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
+    @Column(nullable = false)
     private int months;
+    @Column(nullable = false)
     private float monthlyFee;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "periods")
+    @ManyToMany(mappedBy = "periods", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     private List<ServicePKG> servicePKGs;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "period")
+    @OneToMany(mappedBy = "period", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     private List<Orders> orders;
 }

@@ -15,6 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,6 +60,7 @@ public class OrdersService implements IOrdersService {
 
       order.setTotalValue(period.getMonths() * (period.getMonthlyFee() + optionalProductMonthlyRevenue));
       order.setPackageValueWithoutOptions(period.getMonths() * period.getMonthlyFee());
+      order.setCreationTime(new Timestamp(new Date().getTime()));
       return orderRepo.save(order);
    }
 

@@ -17,21 +17,23 @@ public class ServicePKG {
    @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
    private Long id;
+
+   @Column(nullable = false)
    private String name;
 
-   @ManyToMany
+   @ManyToMany /*(fetch=FetchType.EAGER)*/
    @JoinTable(name = "service_servicePkg")
    private List<Service> services;
 
-   @OneToMany(mappedBy = "servicePKG")
+   @OneToMany(mappedBy = "servicePKG", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
    @JsonIgnore
    private List<Orders> ordersOfServ;
 
-   @ManyToMany
+   @ManyToMany /*(fetch=FetchType.EAGER)*/
    @JoinTable(name = "service_optProduct")
    private List<OptionalProduct> products;
 
-   @ManyToMany
+   @ManyToMany /*(fetch=FetchType.EAGER)*/
    @JoinTable(name = "servicePkg_period")
    private List<ValidityPeriod> periods;
 }

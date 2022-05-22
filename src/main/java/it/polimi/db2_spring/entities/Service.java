@@ -18,15 +18,26 @@ public class Service {
    @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
    private Long Id;
-   private int numberOfMinutes;
-   private int numberOfSMS;
-   private int numberOfGigabytes;
-   private double feeExtraMin;
-   private double feeExtraSMS;
-   private int feeExtraGigabytes;
+
+   @Column(nullable = false)
    private ServiceType serviceType;
 
+   @Column(columnDefinition = "integer default 0")
+   private int numberOfMinutes;
+   @Column(columnDefinition = "integer default 0")
+   private int numberOfSMS;
+   @Column(columnDefinition = "integer default 0")
+   private int numberOfGigabytes;
+   @Column(columnDefinition = "double default 0")
+   private double feeExtraMin;
+   @Column(columnDefinition = "double default 0")
+   private double feeExtraSMS;
+   @Column(columnDefinition = "integer default 0")
+   private int feeExtraGigabytes;
+
+
+
    @JsonIgnore
-   @ManyToMany(mappedBy = "services")
+   @ManyToMany(mappedBy = "services", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
    private List<ServicePKG> servicePKGS;
 }

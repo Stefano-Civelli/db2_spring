@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,21 +17,22 @@ import java.util.Objects;
 public class Users {
    @Id
    private String username;
-   @NotEmpty
+
+   @Column(nullable = false)
    private String password;
+
    @Basic(fetch = FetchType.LAZY)
-   @Column(unique = true)
-   @NotEmpty(message = "a mail is needed")
+   @Column(unique = true, nullable = false)
    private String mail;
    private Boolean isInsolvent;
    @Column(columnDefinition = "integer default 0")
    private int failedPayments;
 
-   @OneToMany(mappedBy = "user", fetch = FetchType.LAZY) //must be the same as the object on which I perform the JoinColumn
+   @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL) //must be the same as the object on which I perform the JoinColumn
    @JsonManagedReference(value = "boia")
    private List<Orders> orders;
 
-   @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+   @OneToMany(mappedBy="user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
    //@JsonManagedReference(value = "boia")
    private List<Alert> alerts;
 
