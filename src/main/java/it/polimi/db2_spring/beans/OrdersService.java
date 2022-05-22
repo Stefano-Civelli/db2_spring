@@ -6,7 +6,7 @@ import it.polimi.db2_spring.entities.Orders;
 import it.polimi.db2_spring.entities.Users;
 import it.polimi.db2_spring.entities.ValidityPeriod;
 import it.polimi.db2_spring.exceptions.CredentialsException;
-import it.polimi.db2_spring.exceptions.OrderCreationException;
+import it.polimi.db2_spring.exceptions.CreationException;
 import it.polimi.db2_spring.repo.OptionalProductRepo;
 import it.polimi.db2_spring.repo.OrderRepo;
 import it.polimi.db2_spring.repo.ValidityPeriodRepo;
@@ -31,7 +31,7 @@ public class OrdersService implements IOrdersService {
    private final OptionalProductRepo optionalProductRepo;
 
    @Override
-   public Orders create(Orders order) throws OrderCreationException {
+   public Orders create(Orders order) throws CreationException {
       log.info("saving new order " + order.getId() + " in the DB");
 
       List<OptionalProduct> optionalProducts = order.getOptionalProducts();
@@ -44,7 +44,7 @@ public class OrdersService implements IOrdersService {
             Optional<OptionalProduct> optionalFromDb = optionalProductRepo.findById(product.getProductCode());
 
             if(optionalFromDb.isEmpty())
-               throw new OrderCreationException("One of the specified optional products does not exists");
+               throw new CreationException("One of the specified optional products does not exists");
 
             optionalProduct = optionalFromDb.get();
             optionalProductMonthlyRevenue += optionalProduct.getMonthlyFee();
@@ -54,7 +54,7 @@ public class OrdersService implements IOrdersService {
       Optional<ValidityPeriod> periodFromDb = validityPeriodRepo.findById(order.getPeriod().getId());
 
       if(periodFromDb.isEmpty())
-         throw new OrderCreationException("The specified validity period does not exists");
+         throw new CreationException("The specified validity period does not exists");
 
       ValidityPeriod period = periodFromDb.get();
 

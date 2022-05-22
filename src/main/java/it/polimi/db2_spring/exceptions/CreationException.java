@@ -1,9 +1,9 @@
 package it.polimi.db2_spring.exceptions;
 
-public class OrderCreationException extends Exception {
+public class CreationException extends Exception {
     private static final long serialVersionUID = 1L;
 
-    public OrderCreationException(String message) {
+    public CreationException(String message) {
         super(message);
     }
 }

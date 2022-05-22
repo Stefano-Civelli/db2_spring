@@ -23,5 +23,4 @@ public class AlertService implements IAlertService {
       log.info("saving new alert " + alert.getAlertId() + " in the DB");
       return alertRepo.save(alert);
    }
-
 }

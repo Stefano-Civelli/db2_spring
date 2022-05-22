@@ -3,12 +3,14 @@ package it.polimi.db2_spring.servlet;
 import it.polimi.db2_spring.beans.OrdersService;
 import it.polimi.db2_spring.entities.Orders;
 import it.polimi.db2_spring.entities.Users;
-import it.polimi.db2_spring.exceptions.OrderCreationException;
+import it.polimi.db2_spring.exceptions.CreationException;
+import it.polimi.db2_spring.utility.DeparsTotalInfos;
 import it.polimi.db2_spring.utility.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.Map;
 
@@ -36,7 +38,7 @@ public class OrdersController {
                          .statusCode(CREATED.value())
                          .build()
          );
-      } catch (OrderCreationException e) {
+      } catch (CreationException e) {
          return ResponseEntity.ok(
                  Response.builder()
                          .timeStamp(now())
@@ -74,5 +76,29 @@ public class OrdersController {
                       .statusCode(OK.value())
                       .build()
       );
+   }
+
+   @PostMapping("/")
+   public ResponseEntity<Response> getTotalValue(@RequestBody DeparsTotalInfos deparsTotalInfos) {
+      try {
+         return ResponseEntity.ok(
+                 Response.builder()
+                         .timeStamp(now())
+                         .data(Map.of("totalCost", deparsTotalInfos.getTotalValue()))
+                         .message("cost of the order")
+                         .status(OK)
+                         .statusCode(OK.value())
+                         .build()
+         );
+      } catch (EntityNotFoundException e) {
+         return ResponseEntity.ok(
+                 Response.builder()
+                         .timeStamp(now())
+                         .message(e.getMessage())
+                         .status(CONFLICT)
+                         .statusCode(CONFLICT.value())
+                         .build()
+         );
+      }
    }
 }
