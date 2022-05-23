@@ -158,3 +158,19 @@ BEGIN
 
 END //
 delimiter ;
+
+
+
+-- TRIGGERS ON SERVICE_PKG_PERIOD TABLE
+-- after insert
+delimiter //
+CREATE DEFINER=`root`@`localhost` TRIGGER `createPurchasedPkgandPeriod`
+AFTER INSERT ON `service_pkg_period` FOR EACH ROW
+BEGIN
+
+    -- every time a new entry that relates a service package to a validity period  is created a new entry is created also in purchases_per_package_and_period table
+    INSERT INTO purchases_per_package_and_period(package_id, period_id)
+    VALUES(NEW.servicepkgs_id, NEW.periods_id);
+
+END //
+delimiter ;
