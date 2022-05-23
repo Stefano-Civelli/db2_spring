@@ -1,5 +1,4 @@
 -- TRIGGERS ON ORDERS TABLE
-
 -- after insert
 delimiter //
 CREATE DEFINER=`root`@`localhost` TRIGGER `updateSalesPerPackage`
@@ -28,7 +27,7 @@ BEGIN
     END IF;
 
 END //
-delimiter;
+delimiter ;
 
 
 -- after update
@@ -121,5 +120,20 @@ DECLARE valueBestOptional double;
 
     END IF;
 
+END //
+delimiter ;
+
+
+
+-- TRIGGERS ON OPTIONAL_PRODUCT TABLE
+-- after insert
+delimiter //
+CREATE DEFINER=`root`@`localhost` TRIGGER `addEntryToRevenuePerOptionalProduct`
+AFTER INSERT ON `optional_product` FOR EACH ROW
+BEGIN
+
+    -- every time a new optional product is created a new entry is created also in revenue_per_optional_product table
+    INSERT INTO revenue_per_optional_product(optional_id, is_best)
+    VALUES(NEW.product_code, false);
 END //
 delimiter ;
