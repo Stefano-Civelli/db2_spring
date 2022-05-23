@@ -174,3 +174,27 @@ BEGIN
 
 END //
 delimiter ;
+
+
+
+-- TRIGGERS ON USERS TABLE
+-- after update
+delimiter //
+CREATE DEFINER=`root`@`localhost` TRIGGER `createInsolventUser`
+AFTER UPDATE ON `users` FOR EACH ROW
+BEGIN
+
+    -- add a user that in just have been marked as insolvent to insolvent_users table
+    IF NEW.is_insolvent = true and NEW.username NOT IN (SELECT id FROM insolvent_users) THEN
+        INSERT INTO insolvent_users(id)
+        VALUES(NEW.username);
+    END IF;
+
+    -- remove a user that in just have been marked as NOT insolvent from insolvent_users table
+    IF NEW.is_insolvent = false and NEW.username IN (SELECT id FROM insolvent_users) THEN
+        DELETE FROM insolvent_users
+        WHERE(id = NEW.username);
+    END IF;
+
+END //
+delimiter ;
