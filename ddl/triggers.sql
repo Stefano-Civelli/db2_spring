@@ -135,5 +135,26 @@ BEGIN
     -- every time a new optional product is created a new entry is created also in revenue_per_optional_product table
     INSERT INTO revenue_per_optional_product(optional_id, is_best)
     VALUES(NEW.product_code, false);
+
+END //
+delimiter ;
+
+
+
+-- TRIGGERS ON SERVICE_PKG TABLE
+-- after insert
+delimiter //
+CREATE DEFINER=`root`@`localhost` TRIGGER `createPurchasedPkg`
+AFTER INSERT ON `servicepkg` FOR EACH ROW
+BEGIN
+
+    -- every time a new service package is created a new entry is created also in purchases_per_package table
+    INSERT INTO purchases_per_package(id)
+    VALUES(NEW.id);
+
+    -- every time a new service package is created a new entry is created also in average_optional_per_package table
+    INSERT INTO average_optional_per_package(package_id)
+    VALUES(NEW.id);
+
 END //
 delimiter ;
