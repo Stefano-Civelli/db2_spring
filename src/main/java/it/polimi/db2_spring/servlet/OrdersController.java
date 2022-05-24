@@ -4,7 +4,8 @@ import it.polimi.db2_spring.beans.OrdersService;
 import it.polimi.db2_spring.entities.Orders;
 import it.polimi.db2_spring.entities.Users;
 import it.polimi.db2_spring.exceptions.CreationException;
-import it.polimi.db2_spring.utility.DeparsTotalInfos;
+import it.polimi.db2_spring.utility.PriceInfoContainer;
+import it.polimi.db2_spring.beans.PriceCalculatorService;
 import it.polimi.db2_spring.utility.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,7 @@ import static org.springframework.http.HttpStatus.CONFLICT;
 public class OrdersController {
 
    private final OrdersService ordersService;
+   private final PriceCalculatorService priceCalculator;
 
    @PostMapping("/place_order")
    public ResponseEntity<Response> placeOrder(@RequestBody @Valid Orders order) {
@@ -78,13 +80,13 @@ public class OrdersController {
       );
    }
 
-   @PostMapping("/")
-   public ResponseEntity<Response> getTotalValue(@RequestBody DeparsTotalInfos deparsTotalInfos) {
+   @GetMapping("/calculate_price")
+   public ResponseEntity<Response> getTotalValue(@RequestBody PriceInfoContainer deparseTotalInfos) {
       try {
          return ResponseEntity.ok(
                  Response.builder()
                          .timeStamp(now())
-                         .data(Map.of("totalCost", deparsTotalInfos.getTotalValue()))
+                         .data(Map.of("totalCost", priceCalculator.getTotalValue(deparseTotalInfos.getPeriod(), deparseTotalInfos.getSelectedOptionalProducts())))
                          .message("cost of the order")
                          .status(OK)
                          .statusCode(OK.value())

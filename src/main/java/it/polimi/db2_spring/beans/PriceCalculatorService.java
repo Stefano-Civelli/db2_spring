@@ -1,28 +1,28 @@
-package it.polimi.db2_spring.utility;
+package it.polimi.db2_spring.beans;
 
 import it.polimi.db2_spring.entities.OptionalProduct;
 import it.polimi.db2_spring.entities.ValidityPeriod;
 import it.polimi.db2_spring.repo.OptionalProductRepo;
 import it.polimi.db2_spring.repo.ValidityPeriodRepo;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.util.List;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
-public class DeparsTotalInfos {
 
-    private ValidityPeriodRepo validityPeriodRepo;
-    private OptionalProductRepo optionalProductRepo;
+@Service
+@Transactional
+@RequiredArgsConstructor
+@Slf4j
+public class PriceCalculatorService {
+    private final ValidityPeriodRepo validityPeriodRepo;
+    private final OptionalProductRepo optionalProductRepo;
 
-    private long period;
-    private List<Long> selectedOptionalProducts;
-
-    public int getTotalValue() throws EntityNotFoundException {
+    public int getTotalValue(Long period, List<Long> selectedOptionalProducts) throws EntityNotFoundException {
         int value = 0;
 
         ValidityPeriod validityFromDb = validityPeriodRepo.getById(period);
