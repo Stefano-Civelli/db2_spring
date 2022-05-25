@@ -1,10 +1,10 @@
 INSERT INTO db2.employee (username, password, mail) VALUES ('admin', 'admin', 'admin@admin.admin');
 
-INSERT INTO db2.service (id, service_type, fee_extra_gigabytes, number_of_gigabytes) VALUES ('1', '2', '32', '2323');
-INSERT INTO db2.service (id, service_type, fee_extra_gigabytes, number_of_gigabytes) VALUES ('2', '3', '32', '2373');
-INSERT INTO db2.service (id, service_type, fee_extra_min, number_of_minutes) VALUES ('3', '0', '44', '55');
-INSERT INTO db2.service (id, service_type) VALUES ('4', '1');
-INSERT INTO db2.service (id, service_type, fee_extrasms, number_ofsms) VALUES ('5', '0', '67', '77');
+INSERT INTO db2.services (id, service_type, fee_extra_gigabytes, number_of_gigabytes) VALUES ('1', '2', '32', '2323');
+INSERT INTO db2.services (id, service_type, fee_extra_gigabytes, number_of_gigabytes) VALUES ('2', '3', '32', '2373');
+INSERT INTO db2.services (id, service_type, fee_extra_min, number_of_minutes) VALUES ('3', '0', '44', '55');
+INSERT INTO db2.services (id, service_type) VALUES ('4', '1');
+INSERT INTO db2.services (id, service_type, fee_extrasms, number_ofsms) VALUES ('5', '0', '67', '77');
 
 INSERT INTO db2.users (username, password, mail) VALUES ('talla', 'pesce', 'talla.pippo@gmail.com');
 INSERT INTO db2.users (username, password, mail) VALUES ('rita', 'pippo', 'rita.pippo@gmail.com');

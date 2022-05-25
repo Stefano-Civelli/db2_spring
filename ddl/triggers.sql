@@ -1,3 +1,13 @@
+-- CREATION OF SUPPORT TABLE optional_products_in_order
+DROP TABLE IF EXISTS optional_products_in_order;
+
+CREATE TABLE optional_products_in_order
+(
+    optional_product_id int not null primary key,
+    sales_of_optional_prod float default 0 not null
+);
+
+
 -- TRIGGERS ON ORDERS TABLE
 -- after insert
 delimiter //

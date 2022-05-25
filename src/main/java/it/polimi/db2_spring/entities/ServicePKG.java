@@ -23,7 +23,7 @@ public class ServicePKG {
 
    @ManyToMany /*(fetch=FetchType.EAGER)*/
    @JoinTable(name = "service_servicePkg")
-   private List<Service> services;
+   private List<Services> services;
 
    @OneToMany(mappedBy = "servicePKG", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
    @JsonIgnore

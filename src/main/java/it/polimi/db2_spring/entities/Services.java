@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Service {
+public class Services {
 
    @Id
    @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,7 +34,6 @@ public class Service {
    private double feeExtraSMS;
    @Column(columnDefinition = "integer default 0")
    private int feeExtraGigabytes;
-
 
 
    @JsonIgnore
