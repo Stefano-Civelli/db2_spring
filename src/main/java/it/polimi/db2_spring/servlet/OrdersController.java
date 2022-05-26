@@ -81,12 +81,12 @@ public class OrdersController {
    }
 
    @GetMapping("/calculate_price")
-   public ResponseEntity<Response> getTotalValue(@RequestBody PriceInfoContainer deparseTotalInfos) {
+   public ResponseEntity<Response> getTotalValue(@RequestBody PriceInfoContainer priceInfoContainer) {
       try {
          return ResponseEntity.ok(
                  Response.builder()
                          .timeStamp(now())
-                         .data(Map.of("totalCost", priceCalculator.getTotalValue(deparseTotalInfos.getPeriod(), deparseTotalInfos.getSelectedOptionalProducts())))
+                         .data(Map.of("totalCost", priceCalculator.getTotalValue(priceInfoContainer.getPeriod(), priceInfoContainer.getSelectedOptionalProducts())))
                          .message("cost of the order")
                          .status(OK)
                          .statusCode(OK.value())

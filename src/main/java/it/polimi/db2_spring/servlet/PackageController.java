@@ -49,7 +49,7 @@ public class PackageController {
       );
    }
 
-   @PostMapping("/package_create")
+   @PostMapping("/create_package")
    public ResponseEntity<Response> createServicePackage(@RequestBody @Valid ServicePKG servicePKG) {
       return ResponseEntity.ok(
               Response.builder()
