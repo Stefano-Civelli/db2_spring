@@ -25,8 +25,8 @@ public class ValidityPeriodController {
         return ResponseEntity.ok(
                 Response.builder()
                         .timeStamp(now())
-                        .data(Map.of("packages", validityPeriodService.getPeriodsList(0)))
-                        .message("packages retrieved")
+                        .data(Map.of("periods", validityPeriodService.getPeriodsList(0)))
+                        .message("periods retrieved")
                         .status(OK)
                         .statusCode(OK.value())
                         .build()

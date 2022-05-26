@@ -1,6 +1,7 @@
 package it.polimi.db2_spring.beans;
 
 import it.polimi.db2_spring.beans.interfaces.IPackageService;
+import it.polimi.db2_spring.entities.Employee;
 import it.polimi.db2_spring.entities.ServicePKG;
 import it.polimi.db2_spring.repo.PackageRepo;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static java.lang.Boolean.TRUE;
@@ -46,6 +48,10 @@ public class PackageService implements IPackageService {
    @Override
    public ServicePKG getPackageById(Long id) throws EntityNotFoundException {
       log.info("fetching Package: " + id);
-      return packageRepo.getById(id);
+      Optional<ServicePKG> pkgDb = packageRepo.findById(id);
+      if(pkgDb.isEmpty())
+         throw new EntityNotFoundException();
+
+      return pkgDb.get();
    }
 }

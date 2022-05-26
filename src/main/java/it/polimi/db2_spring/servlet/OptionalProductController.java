@@ -29,7 +29,7 @@ public class OptionalProductController {
                 Response.builder()
                         .timeStamp(now())
                         .data(Map.of("optionals", optionalService.getOptionalList(0)))
-                        .message("packages retrieved")
+                        .message("optionals retrieved")
                         .status(OK)
                         .statusCode(OK.value())
                         .build()

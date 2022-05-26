@@ -25,8 +25,8 @@ public class ServiceController {
         return ResponseEntity.ok(
                 Response.builder()
                         .timeStamp(now())
-                        .data(Map.of("packages", servicesService.getServicesList(0)))
-                        .message("packages retrieved")
+                        .data(Map.of("services", servicesService.getServicesList(0)))
+                        .message("services retrieved")
                         .status(OK)
                         .statusCode(OK.value())
                         .build()
