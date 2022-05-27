@@ -22,7 +22,7 @@ INSERT INTO db2.servicepkg (id, name) VALUES ('1', 'Mille Mila Baci');
 INSERT INTO db2.servicepkg (id, name) VALUES ('2', 'rita abita in campagna');
 
 INSERT INTO db2.orders (id, creation_time, starting_date_of_subscription, total_value, servicepkg, package_value_without_options,order_owner, period_id)
-VALUES ('1', '2022-04-29 17:39:37', '2022-05-23', '112','1', '58486', 'talla', '2');
+VALUES ('1', '2022-04-29 17:39:37', '2022-05-23', '672','1', '432', 'talla', '2');
 
 -- bridge tables
 

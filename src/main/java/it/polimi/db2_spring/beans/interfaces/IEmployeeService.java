@@ -4,8 +4,7 @@ import it.polimi.db2_spring.entities.Alert;
 import it.polimi.db2_spring.entities.Employee;
 import it.polimi.db2_spring.entities.materializedViews.*;
 import it.polimi.db2_spring.exceptions.CredentialsException;
-import it.polimi.db2_spring.utility.supportForQueries.IPurchasesWithName;
-import it.polimi.db2_spring.utility.supportForQueries.IPurchasesWithNameAndValidity;
+import it.polimi.db2_spring.utility.supportForQueries.*;
 
 import java.util.List;
 
@@ -14,10 +13,10 @@ public interface IEmployeeService {
    Boolean checkCredentials(Employee employee);
    List<IPurchasesWithName> fetchPurchasesPerPackage();
    List<IPurchasesWithNameAndValidity> fetchPurchasesPerPackageAndValidityPeriod();
-   List<RevenuePerPackage> fetchRevenuePerPackage();
-   List<InsolventUsers> fetchInsolventUsers();
-   List<Alert> fetchAlerts();
-   List<SuspendedOrders> fetchSuspendedOrders();
+   List<IRevenuePerPackage> fetchRevenuePerPackage();
+   List<IUsersInsolvent> fetchInsolventUsers();
+   List<IAlert> fetchAlerts();
+   List<ISuspendedOrders> fetchSuspendedOrders();
    RevenuePerOptionalProduct fetchBestOptionalProduct();
    List<AverageOptionalPerPackage> fetchAverageOptionalPerPackage();
 }

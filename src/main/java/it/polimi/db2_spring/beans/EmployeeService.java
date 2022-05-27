@@ -9,8 +9,7 @@ import it.polimi.db2_spring.repo.AlertRepo;
 import it.polimi.db2_spring.repo.EmployeeRepo;
 import it.polimi.db2_spring.repo.PackageRepo;
 import it.polimi.db2_spring.repo.materializedRepo.*;
-import it.polimi.db2_spring.utility.supportForQueries.IPurchasesWithName;
-import it.polimi.db2_spring.utility.supportForQueries.IPurchasesWithNameAndValidity;
+import it.polimi.db2_spring.utility.supportForQueries.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -74,23 +73,23 @@ public class EmployeeService implements IEmployeeService {
    }
 
    @Override
-   public List<RevenuePerPackage> fetchRevenuePerPackage() {
-      return revenuePerPackageRepo.findAll();
+   public List<IRevenuePerPackage> fetchRevenuePerPackage() {
+      return revenuePerPackageRepo.retrieveRevenuePerPackage();
    }
 
    @Override
-   public List<InsolventUsers> fetchInsolventUsers() {
-      return insolventUsersRepo.findAll();
+   public List<IUsersInsolvent> fetchInsolventUsers() {
+      return insolventUsersRepo.retrieveInsolventUsers();
    }
 
    @Override
-   public List<Alert> fetchAlerts() {
-      return alertRepo.findAll();
+   public List<IAlert> fetchAlerts() {
+      return alertRepo.retrieveAlerts();
    }
 
    @Override
-   public List<SuspendedOrders> fetchSuspendedOrders() {
-      return suspendedOrdersRepo.findAll();
+   public List<ISuspendedOrders> fetchSuspendedOrders() {
+      return suspendedOrdersRepo.retrieveSuspendedOrders();
    }
 
    @Override
