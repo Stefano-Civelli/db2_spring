@@ -17,6 +17,6 @@ public interface IEmployeeService {
    List<IUsersInsolvent> fetchInsolventUsers();
    List<IAlert> fetchAlerts();
    List<ISuspendedOrders> fetchSuspendedOrders();
-   RevenuePerOptionalProduct fetchBestOptionalProduct();
-   List<AverageOptionalPerPackage> fetchAverageOptionalPerPackage();
+   List<RevenuePerOptionalProduct> fetchBestOptionalProduct();
+   List<IAverageOptionalPerPackage> fetchAverageOptionalPerPackage();
 }

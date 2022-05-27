@@ -34,7 +34,6 @@ public class EmployeeService implements IEmployeeService {
    private final RevenuePerOptionalProductRepo revenuePerOptionalProductRepo;
    private final AverageOptionalPerPackageRepo averageOptionalPerPackageRepo;
    private final EmployeeRepo employeeRepo;
-   private final PackageRepo packageRepo;
 
    @Override
    public Employee create (Employee employee) throws CredentialsException {
@@ -93,12 +92,12 @@ public class EmployeeService implements IEmployeeService {
    }
 
    @Override
-   public RevenuePerOptionalProduct fetchBestOptionalProduct() {
+   public List<RevenuePerOptionalProduct> fetchBestOptionalProduct() {
       return revenuePerOptionalProductRepo.findBestOptionalProduct();
    }
 
    @Override
-   public List<AverageOptionalPerPackage> fetchAverageOptionalPerPackage() {
-      return averageOptionalPerPackageRepo.findAll();
+   public List<IAverageOptionalPerPackage> fetchAverageOptionalPerPackage() {
+      return averageOptionalPerPackageRepo.retrieveAverageOptionalPerPackage();
    }
 }
