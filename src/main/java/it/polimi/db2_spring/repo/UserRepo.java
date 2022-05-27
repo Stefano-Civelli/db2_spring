@@ -7,5 +7,4 @@ import java.util.List;
 
 public interface UserRepo extends JpaRepository<Users, String> {
     List<Users> findByMail(String mail);
-
 }

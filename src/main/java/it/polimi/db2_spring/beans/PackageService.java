@@ -3,6 +3,8 @@ package it.polimi.db2_spring.beans;
 import it.polimi.db2_spring.beans.interfaces.IPackageService;
 import it.polimi.db2_spring.entities.Employee;
 import it.polimi.db2_spring.entities.ServicePKG;
+import it.polimi.db2_spring.entities.Users;
+import it.polimi.db2_spring.exceptions.CredentialsException;
 import it.polimi.db2_spring.repo.PackageRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,8 +35,13 @@ public class PackageService implements IPackageService {
    }
 
    @Override
-   public ServicePKG create(ServicePKG servicePackage) {
+   public ServicePKG create(ServicePKG servicePackage) throws CredentialsException {
       log.info("saving new service package " + servicePackage.getId() + " in the DB");
+
+      List<ServicePKG> serviceDb = packageRepo.findByName(servicePackage.getName());
+
+      if(!serviceDb.isEmpty())
+         throw new CredentialsException("The name of this  already present in the DB");
       return packageRepo.save(servicePackage);
    }
 

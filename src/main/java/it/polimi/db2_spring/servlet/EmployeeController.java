@@ -64,32 +64,6 @@ public class EmployeeController {
       );
    }
 
-   @PostMapping("/create_optional_product")
-   public ResponseEntity<Response> createOptionalProduct(@RequestBody OptionalProduct optionalProduct) {
-         return ResponseEntity.ok(
-                 Response.builder()
-                         .timeStamp(now())
-                         .data(Map.of("optional product", optionalService.create(optionalProduct)))
-                         .message("optional product created")
-                         .status(OK)
-                         .statusCode(OK.value())
-                         .build()
-         );
-   }
-
-   @PostMapping("/create_service_package")
-   public ResponseEntity<Response> createServicePackage(@RequestBody ServicePKG servicePKG) {
-      return ResponseEntity.ok(
-              Response.builder()
-                      .timeStamp(now())
-                      .data(Map.of("optional product", packageService.create(servicePKG)))
-                      .message("optional product created")
-                      .status(OK)
-                      .statusCode(OK.value())
-                      .build()
-      );
-   }
-
    @GetMapping("/purchases_per_package")
    public ResponseEntity<Response> retrievePurchasesPerPackage() {
       return ResponseEntity.ok(

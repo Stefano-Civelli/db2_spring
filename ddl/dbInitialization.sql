@@ -14,9 +14,9 @@ INSERT INTO db2.validity_period (id, months, monthly_fee) VALUES ('2', '24', '18
 INSERT INTO db2.validity_period (id, months, monthly_fee) VALUES ('3', '36', '15');
 
 INSERT INTO db2.optional_product (product_code, brief_product_description, monthly_fee, name)
-    VALUES ('1', 'questo coso contiene robe', '5', 'servizio1');
+    VALUES ('1', 'questo coso contiene robe', '5', 'optional 1');
 INSERT INTO db2.optional_product (product_code, brief_product_description, monthly_fee, name)
-    VALUES ('2', 'questo coso contiene robe', '5', 'servizio1');
+    VALUES ('2', 'questo coso contiene robe', '5', 'optional 2');
 
 INSERT INTO db2.servicepkg (id, name) VALUES ('1', 'Mille Mila Baci');
 INSERT INTO db2.servicepkg (id, name) VALUES ('2', 'rita abita in campagna');

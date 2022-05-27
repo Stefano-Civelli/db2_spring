@@ -7,7 +7,10 @@ import it.polimi.db2_spring.entities.materializedViews.*;
 import it.polimi.db2_spring.exceptions.CredentialsException;
 import it.polimi.db2_spring.repo.AlertRepo;
 import it.polimi.db2_spring.repo.EmployeeRepo;
+import it.polimi.db2_spring.repo.PackageRepo;
 import it.polimi.db2_spring.repo.materializedRepo.*;
+import it.polimi.db2_spring.utility.supportForQueries.IPurchasesWithName;
+import it.polimi.db2_spring.utility.supportForQueries.IPurchasesWithNameAndValidity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -32,6 +35,7 @@ public class EmployeeService implements IEmployeeService {
    private final RevenuePerOptionalProductRepo revenuePerOptionalProductRepo;
    private final AverageOptionalPerPackageRepo averageOptionalPerPackageRepo;
    private final EmployeeRepo employeeRepo;
+   private final PackageRepo packageRepo;
 
    @Override
    public Employee create (Employee employee) throws CredentialsException {
@@ -60,13 +64,13 @@ public class EmployeeService implements IEmployeeService {
    }
 
    @Override
-   public List<PurchasesPerPackage> fetchPurchasesPerPackage() {
-      return purchasesPerPackageRepo.findAll();
+   public List<IPurchasesWithName> fetchPurchasesPerPackage() {
+      return purchasesPerPackageRepo.retrievePurchasesWithName();
    }
 
    @Override
-   public List<PurchasesPerPackageAndPeriod> fetchPurchasesPerPackageAndValidityPeriod() {
-      return purchasesPerPackageAndPeriodRepo.findAll();
+   public List<IPurchasesWithNameAndValidity> fetchPurchasesPerPackageAndValidityPeriod() {
+      return purchasesPerPackageAndPeriodRepo.retrievePurchasesWithNameAndValidity();
    }
 
    @Override

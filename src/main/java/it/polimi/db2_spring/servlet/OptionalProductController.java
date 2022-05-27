@@ -41,8 +41,8 @@ public class OptionalProductController {
         return ResponseEntity.ok(
                 Response.builder()
                         .timeStamp(now())
-                        .data(Map.of("package", optionalService.create(optionalProduct)))
-                        .message("package created")
+                        .data(Map.of("optional", optionalService.create(optionalProduct)))
+                        .message("optional created")
                         .status(CREATED)
                         .statusCode(CREATED.value())
                         .build()

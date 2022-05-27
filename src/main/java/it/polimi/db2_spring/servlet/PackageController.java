@@ -2,6 +2,7 @@ package it.polimi.db2_spring.servlet;
 
 import it.polimi.db2_spring.beans.PackageService;
 import it.polimi.db2_spring.entities.ServicePKG;
+import it.polimi.db2_spring.exceptions.CredentialsException;
 import it.polimi.db2_spring.utility.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -51,15 +52,26 @@ public class PackageController {
 
    @PostMapping("/create_package")
    public ResponseEntity<Response> createServicePackage(@RequestBody @Valid ServicePKG servicePKG) {
-      return ResponseEntity.ok(
-              Response.builder()
-                      .timeStamp(now())
-                      .data(Map.of("package", packageService.create(servicePKG)))
-                      .message("package created")
-                      .status(CREATED)
-                      .statusCode(CREATED.value())
-                      .build()
-      );
+      try {
+         return ResponseEntity.ok(
+                 Response.builder()
+                         .timeStamp(now())
+                         .data(Map.of("package", packageService.create(servicePKG)))
+                         .message("package created")
+                         .status(CREATED)
+                         .statusCode(CREATED.value())
+                         .build()
+         );
+      } catch (CredentialsException e) {
+         return ResponseEntity.ok(
+                 Response.builder()
+                         .timeStamp(now())
+                         .message(e.getMessage())
+                         .status(CONFLICT)
+                         .statusCode(CONFLICT.value())
+                         .build()
+         );
+      }
    }
 
    @GetMapping("/get_package/{id}")
