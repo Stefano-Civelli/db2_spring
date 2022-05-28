@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface InsolventUsersRepo extends JpaRepository<InsolventUsers, String> {
-    @Query("select u from Users u")
+    @Query("select u from InsolventUsers u")
     List<IUsersInsolvent> retrieveInsolventUsers();
 }

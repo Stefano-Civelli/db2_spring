@@ -109,7 +109,7 @@ public class EmployeeController {
               Response.builder()
                       .timeStamp(now())
                       .data(Map.of("users", employeeService.fetchInsolventUsers()))
-                      .message("fetched revenue per package")
+                      .message("fetched insolvent users")
                       .status(OK)
                       .statusCode(OK.value())
                       .build()
@@ -161,7 +161,7 @@ public class EmployeeController {
       return ResponseEntity.ok(
               Response.builder()
                       .timeStamp(now())
-                      .data(Map.of("average optionals per package", employeeService.fetchAverageOptionalPerPackage()))
+                      .data(Map.of("average_optionals_per_package", employeeService.fetchAverageOptionalPerPackage()))
                       .message("fetched average optional per package")
                       .status(OK)
                       .statusCode(OK.value())
