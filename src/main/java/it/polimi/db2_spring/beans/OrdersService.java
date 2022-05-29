@@ -10,6 +10,7 @@ import it.polimi.db2_spring.exceptions.CreationException;
 import it.polimi.db2_spring.repo.OptionalProductRepo;
 import it.polimi.db2_spring.repo.OrderRepo;
 import it.polimi.db2_spring.repo.ValidityPeriodRepo;
+import it.polimi.db2_spring.utility.supportForQueries.IOrders;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -71,7 +72,7 @@ public class OrdersService implements IOrdersService {
    }
 
    @Override
-   public List<Orders> getRejectedOrderList(Users user) {
+   public List<IOrders> getRejectedOrderList(Users user) {
       log.info("fetching rejected orders from user: " + user.getUsername());
       //return orderRepo.findAllByUser(user).stream().filter(x -> x.getIsRejected().equals(TRUE)).collect(Collectors.toList());
       return orderRepo.findRejectedOrdersOfUser(user);
