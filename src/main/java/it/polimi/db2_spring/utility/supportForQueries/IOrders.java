@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 public interface IOrders {
+    Long getId();
     IPurchasesWithName.ServicePKGSummary getServicePKG();
     Date getCreationTime();
     Date getStartingDateOfSubscription();

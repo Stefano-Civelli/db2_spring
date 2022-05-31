@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Data
@@ -15,7 +14,7 @@ import javax.validation.constraints.NotEmpty;
 public class Employee {
 
    @Transient
-   private final String adminPassword = "snitches get stitches and wind up in ditches";
+   private final String adminPassword = "admin";
 
    @Id
    private String username;
