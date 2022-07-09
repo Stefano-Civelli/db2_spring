@@ -29,22 +29,24 @@ public class Orders {
     private Date startingDateOfSubscription;
     private Boolean isRejected; //se false devo creaare activation schedule
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE,
-            CascadeType.REFRESH,
-            CascadeType.DETACH},
+    @ManyToOne(fetch = FetchType.EAGER,
+//            cascade = {
+//            CascadeType.PERSIST,
+//            CascadeType.MERGE,
+//            CascadeType.REFRESH,
+//            CascadeType.DETACH},
             optional = false
     )
     @JoinColumn(name = "order_owner")
     @JsonBackReference(value = "boia")
     private Users user;
 
-    @ManyToOne (cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE,
-            CascadeType.REFRESH,
-            CascadeType.DETACH},
+    @ManyToOne (
+//            cascade = {
+//            CascadeType.PERSIST,
+//            CascadeType.MERGE,
+//            CascadeType.REFRESH,
+//            CascadeType.DETACH},
             optional = false
     )
     @JoinColumn(name = "servicePKG")

@@ -29,9 +29,9 @@ public class ExternalBillingService {
    private final UserService userService;
    private final AlertService alertService;
 
-   @GetMapping("/check_payment")
+   @PostMapping("/check_payment")
    public ResponseEntity<Response> checkPaymentInfo(@RequestBody @Valid Orders order) {
-      System.out.println(order.getId());
+      System.out.println("check payment order ID: " + order.getId());
       Orders dbOrder;
       boolean paymentOutcome = false;
 
