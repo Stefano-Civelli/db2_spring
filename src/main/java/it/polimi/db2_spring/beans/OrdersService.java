@@ -10,6 +10,7 @@ import it.polimi.db2_spring.exceptions.CreationException;
 import it.polimi.db2_spring.repo.OptionalProductRepo;
 import it.polimi.db2_spring.repo.OrderRepo;
 import it.polimi.db2_spring.repo.ValidityPeriodRepo;
+import it.polimi.db2_spring.utility.supportForQueries.IActivationSchedule;
 import it.polimi.db2_spring.utility.supportForQueries.IOrders;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -69,6 +70,12 @@ public class OrdersService implements IOrdersService {
    public List<Orders> getOrdersList(Users user) {
       log.info("fetching orders from user: " + user.getUsername());
       return orderRepo.findAllByUser(user);
+   }
+
+   @Override
+   public List<IActivationSchedule> getOrdersActivationSchedule(Users user) {
+      log.info("fetching activation schedule from user: " + user.getUsername());
+      return orderRepo.findActivationOfUser(user);
    }
 
    @Override

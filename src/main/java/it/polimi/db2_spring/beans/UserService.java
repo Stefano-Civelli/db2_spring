@@ -87,7 +87,7 @@ public class UserService implements IUserService {
    @Override
    public Boolean incrementFailedPaymentsAndCheckForAlert(Users user) {
       user.incrementFailedPayments();
-      return user.getFailedPayments() == 3;
+      return user.getFailedPayments() % 3 == 0;
    }
 
 }

@@ -103,4 +103,17 @@ public class OrdersController {
          );
       }
    }
+
+   @GetMapping("/activation_schedule/{username}") // can be instresting with $router.push() on frontend side
+   public ResponseEntity<Response> getOrderActivationSchedule(@PathVariable("username") Users user) {
+      return ResponseEntity.ok(
+              Response.builder()
+                      .timeStamp(now())
+                      .data(Map.of("orders", ordersService.getOrdersActivationSchedule(user)))
+                      .message("orders retrieved")
+                      .status(OK)
+                      .statusCode(OK.value())
+                      .build()
+      );
+   }
 }

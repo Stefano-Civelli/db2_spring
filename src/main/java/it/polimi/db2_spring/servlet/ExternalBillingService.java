@@ -42,7 +42,7 @@ public class ExternalBillingService {
          Users orderOwner = dbOrder.getUser();
          if(!paymentOutcome) {
 
-            //is true if need to create a new alert
+            //if is true need to create a new alert
             if(userService.incrementFailedPaymentsAndCheckForAlert(orderOwner)) {
                alertService.create(new Alert(null, dbOrder.getTotalValue(), dbOrder.getCreationTime(), orderOwner));
             }
