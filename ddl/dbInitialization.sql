@@ -26,7 +26,6 @@ VALUES ('1', '2022-04-29 17:39:37', '2022-05-23', '672','1', '432', 'talla', '2'
 
 -- bridge tables
 
-INSERT INTO db2.order_opt_product VALUES ('1','1');
 INSERT INTO db2.order_opt_product VALUES ('1','2');
 
 INSERT INTO db2.service_opt_product VALUES ('1', '2');

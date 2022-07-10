@@ -29,11 +29,11 @@ public class Users {
    private int failedPayments;
 
    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL) //must be the same as the object on which I perform the JoinColumn
-   @JsonManagedReference(value = "boia")
+   @JsonManagedReference(value = "reference")
    private List<Orders> orders;
 
-   @OneToMany(mappedBy="user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-   //@JsonManagedReference(value = "boia")
+
+   @OneToMany(mappedBy="user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
    private List<Alert> alerts;
 
    public Boolean authenticate(String pwd) {

@@ -10,11 +10,11 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface OrderRepo extends JpaRepository<Orders, Long> {
-   List<Orders> findAllByUser(Users user);
+   List<Orders> findAllByUserOrderByCreationTimeDesc(Users user);
 
    @Query("select o from Orders o where o.user = ?1 and o.isRejected = true")
    List<IOrders> findRejectedOrdersOfUser(Users user);
 
-   @Query("select o from Orders o where o.user = ?1 and o.isRejected = false and o.startingDateOfSubscription > current_date")
+   @Query("select o from Orders o where o.user = ?1 and o.isRejected = false and o.startingDateOfSubscription > current_date order by o.startingDateOfSubscription asc")
    List<IActivationSchedule> findActivationOfUser(Users user);
 }

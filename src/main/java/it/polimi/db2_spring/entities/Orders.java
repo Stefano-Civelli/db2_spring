@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -30,33 +32,40 @@ public class Orders {
     private Boolean isRejected; //se false devo creaare activation schedule
 
     @ManyToOne(fetch = FetchType.EAGER,
-//            cascade = {
-//            CascadeType.PERSIST,
-//            CascadeType.MERGE,
-//            CascadeType.REFRESH,
-//            CascadeType.DETACH},
+            cascade = {
+            CascadeType.MERGE,
+            CascadeType.REFRESH,
+            CascadeType.DETACH},
             optional = false
     )
     @JoinColumn(name = "order_owner")
-    @JsonBackReference(value = "boia")
+    @JsonBackReference(value = "reference")
     private Users user;
 
-    @ManyToOne (
-//            cascade = {
-//            CascadeType.PERSIST,
-//            CascadeType.MERGE,
-//            CascadeType.REFRESH,
-//            CascadeType.DETACH},
+    @ManyToOne (fetch = FetchType.EAGER,
+            cascade = {
+            CascadeType.MERGE,
+            CascadeType.REFRESH,
+            CascadeType.DETACH},
             optional = false
     )
     @JoinColumn(name = "servicePKG")
     private ServicePKG servicePKG;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER,
+            cascade = {
+            CascadeType.MERGE,
+            CascadeType.REFRESH,
+            CascadeType.DETACH})
     @JoinTable(name = "order_opt_product")
     private List<OptionalProduct> optionalProducts;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER,
+            cascade = {
+            CascadeType.MERGE,
+            CascadeType.REFRESH,
+            CascadeType.DETACH},
+            optional = false)
     @JoinColumn(name = "period_id")
     private ValidityPeriod period;
 }

@@ -21,15 +21,24 @@ public class OptionalProduct {
    private String name;
    @Column(nullable = false)
    private String briefProductDescription;
-   // magari aggiungere un product type
    @Column(nullable = false)
    private double monthlyFee;
 
    @JsonIgnore
-   @ManyToMany(mappedBy = "products" /*, fetch = FetchType.EAGER*/)
+   @ManyToMany(mappedBy = "products" ,
+           cascade = {
+           CascadeType.MERGE,
+           CascadeType.REFRESH,
+           CascadeType.DETACH},
+           fetch = FetchType.LAZY)
    private List<ServicePKG> servicePKGList;
 
    @JsonIgnore
-   @ManyToMany(mappedBy = "optionalProducts", fetch = FetchType.EAGER)
+   @ManyToMany(mappedBy = "optionalProducts",
+           cascade = {
+           CascadeType.MERGE,
+           CascadeType.REFRESH,
+           CascadeType.DETACH},
+           fetch = FetchType.LAZY)
    private  List<Orders> orders;
 }

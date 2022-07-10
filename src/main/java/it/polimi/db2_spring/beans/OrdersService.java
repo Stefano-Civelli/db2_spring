@@ -34,7 +34,7 @@ public class OrdersService implements IOrdersService {
 
    @Override
    public Orders create(Orders order) throws CreationException {
-      log.info("saving new order " + order.getId() + " in the DB");
+      log.info("saving new order for user " + order.getUser().getUsername() + " in the DB");
 
       List<OptionalProduct> optionalProducts = order.getOptionalProducts();
       OptionalProduct optionalProduct = null;
@@ -69,7 +69,7 @@ public class OrdersService implements IOrdersService {
    @Override
    public List<Orders> getOrdersList(Users user) {
       log.info("fetching orders from user: " + user.getUsername());
-      return orderRepo.findAllByUser(user);
+      return orderRepo.findAllByUserOrderByCreationTimeDesc(user);
    }
 
    @Override
@@ -81,7 +81,7 @@ public class OrdersService implements IOrdersService {
    @Override
    public List<IOrders> getRejectedOrderList(Users user) {
       log.info("fetching rejected orders from user: " + user.getUsername());
-      //return orderRepo.findAllByUser(user).stream().filter(x -> x.getIsRejected().equals(TRUE)).collect(Collectors.toList());
+      //return orderRepo.findAllByUserOrderByCreationTimeDesc(user).stream().filter(x -> x.getIsRejected().equals(TRUE)).collect(Collectors.toList());
       return orderRepo.findRejectedOrdersOfUser(user);
    }
 
