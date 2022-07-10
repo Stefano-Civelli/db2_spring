@@ -61,7 +61,7 @@ DECLARE valueBestOptional double;
         UPDATE purchases_per_package_and_period SET number_of_purchases = number_of_purchases + 1
         WHERE (package_id, period_id) IN (SELECT o.servicepkg, o.period_id
                                           FROM orders o
-                                          WHERE o.servicepkg = NEW.servicepkg);
+                                          WHERE o.servicepkg = NEW.servicepkg and o.period_id = NEW.period_id);
 
         -- 3) remove from table 'suspended_orders' the tuple related to the order just payed (effects SUSPENDED_ORDERS)
         DELETE FROM suspended_orders

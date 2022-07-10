@@ -80,7 +80,7 @@ public class OrdersController {
       );
    }
 
-   @GetMapping("/calculate_price")
+   @PostMapping("/calculate_price")
    public ResponseEntity<Response> getTotalValue(@RequestBody PriceInfoContainer priceInfoContainer) {
       try {
          return ResponseEntity.ok(

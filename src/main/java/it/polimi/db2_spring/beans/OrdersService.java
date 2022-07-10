@@ -38,7 +38,7 @@ public class OrdersService implements IOrdersService {
 
       List<OptionalProduct> optionalProducts = order.getOptionalProducts();
       OptionalProduct optionalProduct = null;
-      int optionalProductMonthlyRevenue = 0;
+      double optionalProductMonthlyRevenue = 0;
 
       if(optionalProducts != null) {
          for (OptionalProduct product : optionalProducts) {
