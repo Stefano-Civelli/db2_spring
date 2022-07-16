@@ -28,7 +28,7 @@ public class Users {
    @Column(columnDefinition = "integer default 0")
    private int failedPayments;
 
-   @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL) //must be the same as the object on which I perform the JoinColumn
+   @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
    @JsonManagedReference(value = "reference")
    private List<Orders> orders;
 

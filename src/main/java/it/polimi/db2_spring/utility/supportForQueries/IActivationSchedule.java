@@ -10,6 +10,8 @@ public interface IActivationSchedule {
     Date getStartingDateOfSubscription();
     ValidityPeriodSummary getPeriod();
     ServicePKGSummary getServicePKG();
+    double getTotalValue();
+
 
     interface ServicePKGSummary {
         String getName();

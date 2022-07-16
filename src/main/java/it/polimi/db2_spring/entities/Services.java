@@ -35,7 +35,6 @@ public class Services {
    @Column(columnDefinition = "integer default 0")
    private int feeExtraGigabytes;
 
-
    @JsonIgnore
    @ManyToMany(mappedBy = "services", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
    private List<ServicePKG> servicePKGS;

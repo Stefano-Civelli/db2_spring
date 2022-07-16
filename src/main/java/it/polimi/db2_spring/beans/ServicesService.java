@@ -5,6 +5,7 @@ import it.polimi.db2_spring.entities.Services;
 import it.polimi.db2_spring.repo.ServiceRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -23,7 +24,7 @@ public class ServicesService implements IServicesService {
     public List<Services> getServicesList(int limit) {
         log.info("fetching Service Package list");
         if(limit == 0)
-            return serviceRepo.findAll();
-        return serviceRepo.findAll().stream().limit(limit).collect(Collectors.toList());
+            return serviceRepo.findAll(Sort.by(Sort.Direction.ASC, "serviceType"));
+        return serviceRepo.findAll(Sort.by(Sort.Direction.ASC, "serviceType")).stream().limit(limit).collect(Collectors.toList());
     }
 }
